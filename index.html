@@ -1,0 +1,2682 @@
+<html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>化妆品活性成分总览 - TEMU跨境爆款适配版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#EC4899',
+                        accent: '#8B5CF6',
+                        neutral: '#6B7280',
+                        'neutral-light': '#F3F4F6',
+                        'neutral-dark': '#374151',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                        'hover': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .transition-all-300 {
+                transition: all 300ms ease-in-out;
+            }
+            .bg-gradient-primary {
+                background: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 100%);
+            }
+            .bg-gradient-secondary {
+                background: linear-gradient(135deg, #EC4899 0%, #F472B6 100%);
+            }
+            .bg-gradient-accent {
+                background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%);
+            }
+        }
+
+        /* 右侧胶囊导航按钮 */
+        .capsule-btn {
+            @apply bg-white text-gray-700 rounded-l-full py-2 pl-3 pr-2 w-12 
+                   transition-all duration-300 ease-in-out shadow-md 
+                   hover:w-32 hover:bg-gradient-to-r hover:from-primary/10 hover:to-primary/20 
+                   hover:text-primary hover:shadow-lg overflow-hidden whitespace-nowrap;
+            text-overflow: ellipsis;
+            direction: rtl; /* 省略号在左侧，贴近右边缘 */
+            text-align: left;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .capsule-btn:hover {
+            direction: ltr; /* 悬停时恢复从左到右，显示完整文字 */
+            text-overflow: clip;
+        }
+        /* 返回顶部胶囊特殊处理（可带图标） */
+        .capsule-btn.top {
+            @apply mt-4;
+        }
+        .capsule-btn.top i {
+            @apply mr-1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- 顶部导航栏 -->
+    <header class="bg-white/80 backdrop-blur-md shadow-soft sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between">
+            <div class="flex items-center mb-4 md:mb-0">
+                <h1 class="text-2xl font-bold text-primary">化妆品活性成分总览</h1>
+                <span class="ml-2 text-sm bg-primary/10 text-primary px-2 py-1 rounded-full">TEMU跨境爆款适配版</span>
+            </div>
+            <div class="w-full md:w-1/3">
+                <div id="search-container" class="relative flex items-center justify-end">
+                    <input type="text" id="search-input" placeholder="搜索..." class="w-0 px-0 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300 opacity-0">
+                    <button id="search-button" class="text-gray-500 hover:text-primary p-2 focus:outline-none">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- 左侧分类导航 -->
+            <aside class="lg:w-1/4 lg:sticky lg:top-24 lg:self-start">
+                <div class="bg-white rounded-xl shadow-soft p-4">
+                    <h2 class="text-lg font-bold text-gray-800 mb-4">成分分类</h2>
+                    <!-- 改为响应式网格布局：手机2列，平板3列，桌面1列 -->
+                    <nav class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-2">
+                        <button class="category-btn active text-center bg-gradient-primary text-white px-3 py-2 lg:px-4 lg:py-3 rounded-lg shadow-soft hover:shadow-hover transition-all-300 text-sm lg:text-base" data-category="all">全部成分</button>
+                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg shadow-soft hover:shadow-hover transition-all-300 text-sm lg:text-base" data-category="基础保湿锁水类">基础保湿锁水</button>
+                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg shadow-soft hover:shadow-hover transition-all-300 text-sm lg:text-base" data-category="紧致抗老提拉类">紧致抗老提拉</button>
+                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg shadow-soft hover:shadow-hover transition-all-300 text-sm lg:text-base" data-category="提亮美白焕肤类">提亮美白焕肤</button>
+                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg shadow-soft hover:shadow-hover transition-all-300 text-sm lg:text-base" data-category="舒缓修护敏感肌类">舒缓修护敏感肌</button>
+                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg shadow-soft hover:shadow-hover transition-all-300 text-sm lg:text-base" data-category="网红爆款抗氧化类">网红爆款抗氧化</button>
+                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg shadow-soft hover:shadow-hover transition-all-300 text-sm lg:text-base" data-category="违规词参考">违规词参考</button>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- 右侧成分列表 -->
+            <div class="lg:w-3/4">
+                <!-- 成分列表 -->
+                <div id="ingredients-container" class="flex flex-col sm:flex-row gap-6 items-start">
+                    <!-- 成分卡片将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-neutral-dark text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-lg font-semibold">化妆品活性成分总览</h3>
+                    <p class="text-sm text-gray-400">TEMU跨境-适配版 </p>
+                </div>
+                <div class="text-sm text-gray-400">
+                    <p>© 2025 化妆品成分数据库</p>
+                    <p>所有功效表述严格符合TEMU全球站点药监合规要求</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮（初始隐藏，滚动后显示） -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-gradient-primary text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 z-50 hover:shadow-xl focus:outline-none">
+        <i class="fa fa-arrow-up text-xl"></i>
+    </button>
+
+    <script>
+        // 违规词数据
+        const prohibitedWordsData = [
+            {
+                category: "违规词参考",
+                name: "违禁功效词",
+                englishName: "Prohibited Efficacy Terms",
+                scientificName: "",
+                benefits: "以下词汇在化妆品功效描述中禁止使用：\n- 医疗术语：治疗、治愈、疗效、处方、药品\n- 夸大功效：神奇、特效、彻底、根除、永久\n- 绝对化表述：最有效、顶级、第一、唯一",
+                products: "所有化妆品类别",
+                risks: "使用违规词可能导致产品下架、罚款等合规风险"
+            },
+            {
+                category: "违规词参考",
+                name: "敏感成分警示",
+                englishName: "Sensitive Ingredients Alert",
+                scientificName: "",
+                benefits: "需特别标注的敏感成分：\n- 酒精（乙醇）\n- 香精（香料）\n- 矿物油\n- 硅油\n- 化学防晒剂",
+                products: "全品类护肤品",
+                risks: "敏感肌需谨慎使用含以上成分的产品"
+            },
+            {
+                category: "违规词参考",
+                name: "合规替代词",
+                englishName: "Compliant Alternative Terms",
+                scientificName: "",
+                benefits: "推荐使用的合规替代词：\n- 改善外观而非治疗\n- 帮助/辅助而非功效\n- 看起来/感觉而非实际效果\n- 温和/舒缓而非抗敏",
+                products: "所有化妆品类别",
+                risks: "使用合规词汇降低监管风险"
+            }
+        ];
+
+        // 子类关键词映射（从 products 字段提取）
+        const subcategoryKeywords = {
+            '面霜': ['面霜'],
+            '眼霜': ['眼霜'],
+            '精华': ['精华'],
+            '爽肤水': ['爽肤水'],
+            '面膜': ['面膜'],
+            '身体乳': ['身体乳'],
+            '手霜': ['手霜'],
+            '足霜': ['足霜'],
+            '唇膏': ['唇膏'],
+            '颈霜': ['颈霜'],
+            '沐浴露': ['沐浴露'],
+            '洁面': ['洁面'],
+            '皲裂膏': ['皲裂膏'],
+            '护发产品': ['护发产品'],
+            '防晒': ['防晒'],
+            '牙膏': ['牙膏']
+        };
+
+        // 合并重复成分，生成新数据（修复版）
+        function mergeIngredientsData(originalData) {
+            // 定义部位类到大类的映射规则
+            function getNormalizedCategory(item) {
+                const originalCat = item.category;
+                if (originalCat === "眼部护理专属类") {
+                    // 根据名称和功效判断：如果含抗老关键词则归入紧致抗老类，否则归入基础保湿类
+                    const text = (item.name + (item.benefits || '')).toLowerCase();
+                    const antiAgingKeywords = ['a醇', '视黄醇', '玻色因', '胜肽', '六胜肽', '类蛇毒肽', '芋螺肽', '蓝铜胜肽', '抗老', '紧致', '提拉', '细纹', '皱纹'];
+                    if (antiAgingKeywords.some(kw => text.includes(kw))) {
+                        return "紧致抗老提拉类";
+                    } else {
+                        return "基础保湿锁水类";
+                    }
+                }
+                if (originalCat === "手足护理专属类") {
+                    // 手足护理通常以保湿修护为主，归入基础保湿锁水类
+                    return "基础保湿锁水类";
+                }
+                // 其他大类保持不变
+                return originalCat;
+            }
+
+            const map = new Map(); // key: 成分名称
+
+            originalData.forEach(item => {
+                // 标准化大类
+                const normalizedCategory = getNormalizedCategory(item);
+                
+                // 创建新对象
+                const normalizedItem = {
+                    ...item,
+                    category: normalizedCategory
+                };
+
+                // 从 products 提取子类
+                const subcategories = new Set();
+                const productsText = normalizedItem.products || '';
+                for (const [sub, keywords] of Object.entries(subcategoryKeywords)) {
+                    for (const kw of keywords) {
+                        if (productsText.includes(kw)) {
+                            subcategories.add(sub);
+                            break;
+                        }
+                    }
+                }
+                // 原眼部类强制添加“眼霜”
+                if (item.category === "眼部护理专属类") {
+                    subcategories.add("眼霜");
+                }
+                // 原手足类强制添加手霜/足霜
+                if (item.category === "手足护理专属类") {
+                    if (productsText.includes('手') || productsText.includes('手足')) subcategories.add("手霜");
+                    if (productsText.includes('足') || productsText.includes('手足')) subcategories.add("足霜");
+                    // 如果都没匹配到，至少添加一个“手霜”作为代表
+                    if (!subcategories.has("手霜") && !subcategories.has("足霜")) {
+                        subcategories.add("手霜");
+                    }
+                }
+                normalizedItem.subcategories = Array.from(subcategories);
+
+                const name = normalizedItem.name;
+                if (map.has(name)) {
+                    // 已存在，合并 products 和子类
+                    const existing = map.get(name);
+                    // 合并 products
+                    const productsSet = new Set([existing.products, normalizedItem.products]);
+                    existing.products = Array.from(productsSet).join('，');
+                    // 合并子类
+                    const mergedSubs = new Set([...existing.subcategories, ...normalizedItem.subcategories]);
+                    existing.subcategories = Array.from(mergedSubs);
+                    // 其他字段保持原有（category 应已统一）
+                } else {
+                    // 不存在，直接添加
+                    map.set(name, normalizedItem);
+                }
+            });
+
+            return Array.from(map.values());
+        }
+
+
+
+        // 详细违规词库（中英文对照）
+        const prohibitedWordsDetailed = [
+          {
+            category: "涉药描述 (Drug Claims)",
+            items: [
+              { en: "Removes/reduces/treats fine lines, wrinkles, crow's feet, smile lines, frown lines, etc.", zh: "去除/减少/治疗细纹、皱纹、鱼尾纹、笑纹、皱眉纹等" },
+              { en: "Decreases wrinkle depth, roughness, volume, etc.", zh: "减少皱纹深度、粗糙度、体积等" },
+              { en: "Aids in the production/stimulates/increases collagen, elastin, fibroblasts, etc.", zh: "有助于产生/刺激/增加胶原蛋白、弹性蛋白、成纤维细胞等" },
+              { en: "Alternative to Botox/filler", zh: "肉毒杆菌/填充剂的替代品" },
+              { en: "Increases cell turnover, cell regeneration, healing", zh: "增加细胞更新、细胞再生、愈合" },
+              { en: "Affects/penetrates the epidermis/dermis (any layer of skin besides the stratum corneum)", zh: "影响/穿透表皮/真皮（角质层以外的任何皮肤层）" }
+            ]
+          },
+          {
+            category: "常用化妆品表述 (Acceptable Cosmetic Claims)",
+            items: [
+              { en: "Reduces the appearance of fine lines, wrinkles, crow's feet, smile lines, frown lines, etc.", zh: "减少细纹、皱纹、鱼尾纹、笑纹、皱眉纹等的外观" },
+              { en: "Moisturizes skin to make wrinkles less noticeable", zh: "滋润皮肤，使皱纹不那么明显" },
+              { en: "Make skin look smoother and firmer", zh: "使皮肤看起来更光滑、更紧致" },
+              { en: "Visibly minimize wrinkles, fine lines, etc.", zh: "明显减少皱纹、细纹等" },
+              { en: "Leave skin looking healthy, smooth, and with a youthful glow", zh: "让皮肤看起来健康、光滑，焕发青春光彩" },
+              { en: "Anti-aging skincare; make skin younger-looking", zh: "抗衰老护肤品；使皮肤看起来更年轻" }
+            ]
+          },
+          {
+            category: "美白相关 (Skin Lightening)",
+            items: [
+              { en: "Skin lightening/whitening/bleaching", zh: "皮肤美白/漂白" },
+              { en: "Brighten", zh: "提亮" },
+              { en: "make the skin appear lighter, brighter, or more radiant", zh: "使皮肤看起来更浅、更亮或更容光焕发" },
+              { en: "Visibly brighten and smooth the look of uneven complexion", zh: "明显提亮和抚平肤色不均的外观" },
+              { en: "Reduce the look of (or appearance of) dark spots, discoloration", zh: "减少黑斑、变色等的外观" },
+              { en: "Create a more even-looking skin tone", zh: "打造更均匀的肤色" }
+            ]
+          },
+          {
+            category: "痤疮相关 (Acne)",
+            items: [
+              { en: "Covers/Conceals acne", zh: "遮盖/隐藏痤疮" },
+              { en: "Cleans/Cleanses skin", zh: "清洁皮肤" },
+              { en: "Anti-acne", zh: "抗痤疮" },
+              { en: "Clears/Prevents/Stops/Fights acne", zh: "清除/预防/阻止/对抗痤疮" }
+            ]
+          },
+          {
+            category: "常见禁用词 (Common Prohibited Words)",
+            items: [
+              { en: "rejuvenat / rejuvenating / rejuvenation", zh: "焕肤/返老还童" },
+              { en: "pigment*", zh: "色素*" },
+              { en: "Active ingredient", zh: "活性成分" },
+              { en: "relieve fatigue", zh: "缓解疲劳" },
+              { en: "cell renewal", zh: "细胞更新" },
+              { en: "nail renewal", zh: "指甲更新" },
+              { en: "nail discoloration", zh: "指甲变色" },
+              { en: "brittle nail", zh: "脆甲" },
+              { en: "weak nail", zh: "指甲脆弱" },
+              { en: "splitting nail", zh: "指甲开裂" },
+              { en: "reduce discoloration", zh: "减少变色" },
+              { en: "wrinkle reducer", zh: "皱纹减少剂" },
+              { en: "Anti-Cellulite", zh: "抗橘皮组织" },
+              { en: "bacteria", zh: "细菌" },
+              { en: "bacteriostatic", zh: "抑菌" },
+              { en: "Sensitivity Relief", zh: "缓解敏感" },
+              { en: "cellulite", zh: "橘皮组织" },
+              { en: "stimulating", zh: "刺激" },
+              { en: "melanin", zh: "黑色素" },
+              { en: "inhibits melanin", zh: "抑制黑色素" },
+              { en: "metabolism", zh: "新陈代谢" },
+              { en: "rosacea", zh: "红斑痤疮" },
+              { en: "growth", zh: "生长" },
+              { en: "Inhibit", zh: "抑制" },
+              { en: "thinning", zh: "变薄" },
+              { en: "Scar", zh: "疤痕" },
+              { en: "antibacterial", zh: "抗菌" },
+              { en: "Calms", zh: "镇静" },
+              { en: "reduce", zh: "减少" },
+              { en: "remove", zh: "去除" },
+              { en: "repair", zh: "修复" },
+              { en: "treatment", zh: "治疗" },
+              { en: "therapy", zh: "疗法" },
+              { en: "instantly", zh: "立即" },
+              { en: "before", zh: "之前" },
+              { en: "after", zh: "之后" },
+              { en: "rapidly", zh: "快速" },
+              { en: "rapid", zh: "快速" },
+              { en: "cells", zh: "细胞" },
+              { en: "dead skin", zh: "死皮" },
+              { en: "bactericide", zh: "杀菌剂" },
+              { en: "germicide", zh: "杀菌剂" },
+              { en: "antiseptic", zh: "防腐剂" },
+              { en: "disinfectant", zh: "消毒剂" },
+              { en: "pain", zh: "疼痛" },
+              { en: "painless", zh: "无痛" },
+              { en: "enamel", zh: "牙釉质" },
+              { en: "heal", zh: "愈合" },
+              { en: "bleed", zh: "出血" },
+              { en: "antigingvltis", zh: "抗牙龈炎" },
+              { en: "germs", zh: "病菌" },
+              { en: "pathogens", zh: "病原体" },
+              { en: "inflammation", zh: "炎症" },
+              { en: "anti-cavity", zh: "防蛀牙" },
+              { en: "anti-aging", zh: "抗衰老" },
+              { en: "white", zh: "白色" },
+              { en: "whitening", zh: "美白" },
+              { en: "anti-ance", zh: "抗痤疮" },
+              { en: "dark spot correct", zh: "祛斑" },
+              { en: "promote", zh: "促进" },
+              { en: "enhance", zh: "增强" },
+              { en: "anti-inflammatory", zh: "抗炎" },
+              { en: "anti-bacterial", zh: "抗菌" },
+              { en: "pigmentation", zh: "色素沉着" },
+              { en: "detoxification", zh: "排毒" },
+              { en: "Flawless", zh: "无瑕" },
+              { en: "anti-chafe", zh: "抗摩擦" },
+              { en: "volumizing", zh: "丰盈" },
+              { en: "maximizer", zh: "最大化" },
+              { en: "callus", zh: "老茧" },
+              { en: "corn", zh: "鸡眼" },
+              { en: "Bunion", zh: "拇囊炎" },
+              { en: "correct", zh: "矫正" },
+              { en: "corrector", zh: "矫正器" },
+              { en: "Get Relief", zh: "缓解" },
+              { en: "Prevention", zh: "预防" },
+              { en: "Relief", zh: "缓解" },
+              { en: "relieve", zh: "缓解" },
+              { en: "Orthodontics", zh: "正畸" },
+              { en: "Straightening", zh: "矫正" },
+              { en: "Straightener", zh: "直发器" },
+              { en: "Phototherapy", zh: "光疗" },
+              { en: "Light Therapy", zh: "光疗" },
+              { en: "rejuvenation", zh: "返老还童" },
+              { en: "led", zh: "LED" },
+              { en: "IPX7", zh: "IPX7" },
+              { en: "IPX5", zh: "IPX5" },
+              { en: "stop", zh: "停止" },
+              { en: "wrinkle reduction / erase", zh: "减少/消除皱纹" },
+              { en: "lightening", zh: "变亮" },
+              { en: "Alopecia", zh: "脱发" },
+              { en: "thin hair", zh: "头发稀疏" },
+              { en: "balding", zh: "秃头" },
+              { en: "treat", zh: "治疗" },
+              { en: "cure", zh: "治愈" },
+              { en: "Antiperspirants", zh: "止汗剂" },
+              { en: "Hyperhidrosis", zh: "多汗症" },
+              { en: "sweating due to hormonal changes", zh: "荷尔蒙变化引起的出汗" },
+              { en: "bacteria break", zh: "细菌突破" },
+              { en: "Calms scrapes", zh: "镇静擦伤" },
+              { en: "protects bites", zh: "保护叮咬" },
+              { en: "relieves insect stings", zh: "缓解昆虫叮咬" },
+              { en: "soothes skin inflammation", zh: "舒缓皮肤炎症" },
+              { en: "treat rashes", zh: "治疗皮疹" },
+              { en: "improve sunburn", zh: "改善晒伤" },
+              { en: "alleviate eczema", zh: "缓解湿疹" },
+              { en: "Freckle Removal", zh: "祛斑" },
+              { en: "Infect", zh: "感染" },
+              { en: "pain persists", zh: "疼痛持续" },
+              { en: "Promote sleep", zh: "促进睡眠" },
+              { en: "aid sleep", zh: "助眠" },
+              { en: "scar removal", zh: "祛疤" },
+              { en: "age spots", zh: "老年斑" },
+              { en: "dark circles under the eyes", zh: "黑眼圈" },
+              { en: "stretch marks", zh: "妊娠纹" },
+              { en: "skin barrier", zh: "皮肤屏障" },
+              { en: "stress relief", zh: "缓解压力" },
+              { en: "depression relief", zh: "缓解抑郁" },
+              { en: "sunburn relief", zh: "缓解晒伤" },
+              { en: "swelling reduction", zh: "消肿" }
+            ]
+          },
+          {
+            category: "高频违规词 (High-Frequency Violations)",
+            items: [
+              { en: "reduce the production of melanin", zh: "减少黑色素的产生" },
+              { en: "reduce pigment in the skin", zh: "减少皮肤中的色素" },
+              { en: "aromatherapy", zh: "芳香疗法" },
+              { en: "stop hair growth", zh: "停止头发生长" },
+              { en: "Inhibit hair growth", zh: "抑制头发生长" },
+              { en: "Prevent hair thinning", zh: "防止头发稀疏" },
+              { en: "antibacterial", zh: "抗菌" },
+              { en: "Calms", zh: "镇静" },
+              { en: "Heal repair damaged skin", zh: "愈合修复受损皮肤" },
+              { en: "anti-wrinkle", zh: "抗皱" },
+              { en: "dental plaque", zh: "牙菌斑" },
+              { en: "weight loss/slim", zh: "减肥/瘦身" },
+              { en: "bioactive", zh: "生物活性" },
+              { en: "growth factor", zh: "生长因子" },
+              { en: "anti-anxiety", zh: "抗焦虑" },
+              { en: "enhance sexual activity", zh: "增强性活动" },
+              { en: "sleep inducing", zh: "助眠" },
+              { en: "inflammation", zh: "炎症" },
+              { en: "anti acne", zh: "抗痤疮" },
+              { en: "inject/injection", zh: "注射" }
+            ]
+          },
+          {
+            category: "牙科相关 (Dental)",
+            items: [
+              { en: "dental bur", zh: "牙钻" },
+              { en: "dental handpiece", zh: "牙科手机" },
+              { en: "dental X-ray", zh: "牙科X光" },
+              { en: "dental relining", zh: "牙科衬垫" },
+              { en: "professional", zh: "专业" },
+              { en: "dentist", zh: "牙医" },
+              { en: "hospital", zh: "医院" },
+              { en: "Surgical", zh: "外科" },
+              { en: "Examination use", zh: "检查用" },
+              { en: "clinical", zh: "临床" },
+              { en: "doctor recommend", zh: "医生推荐" },
+              { en: "Orthodontics", zh: "正畸" },
+              { en: "anti-molar", zh: "抗磨牙" }
+            ]
+          },
+          {
+            category: "指甲护理 (Nail Care)",
+            items: [
+              { en: "Protect the nails", zh: "保护指甲" },
+              { en: "Keeping in good condition", zh: "保持良好状态" },
+              { en: "Change appearance", zh: "改变外观" },
+              { en: "Promote nail growth", zh: "促进指甲生长" },
+              { en: "Anti-fungal", zh: "抗真菌" },
+              { en: "Prevent fungal nail infections", zh: "预防指甲真菌感染" },
+              { en: "Athlete's foot", zh: "香港脚" },
+              { en: "her pes", zh: "疱疹" },
+              { en: "Ingrown Toenail Relief", zh: "缓解嵌甲" }
+            ]
+          },
+          {
+            category: "身体塑形 (Body Shaping)",
+            items: [
+              { en: "bodybuilding", zh: "健美" },
+              { en: "muscle building", zh: "增肌" },
+              { en: "weight loss", zh: "减肥" },
+              { en: "slim", zh: "瘦身" },
+              { en: "fat loss", zh: "减脂" },
+              { en: "reduce cellulite", zh: "减少橘皮组织" },
+              { en: "reduce edema", zh: "消肿" }
+            ]
+          }
+        ];
+
+        // 成分数据
+        const ingredientsData = [
+            // 基础保湿锁水类
+            {
+                category: "基础保湿锁水类",
+                name: "透明质酸",
+                englishName: "Hyaluronic Acid",
+                scientificName: "玻尿酸，分大/中/小分子",
+                benefits: "深层补水锁水，改善肌肤干燥起皮外观，维持肌肤水润饱满状态，是公认的补水保湿核心成分",
+                products: "全品类护肤品，面霜、手足霜、精华、眼霜、爽肤水、面膜全场景通用",
+                risks: "浓度＞2%时易出现搓泥、黏腻感；极端敏感肌高浓度下可能出现轻微泛红，全球合规添加量0.05%-2%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "胶原蛋白",
+                englishName: "Collagen",
+                scientificName: "水解胶原蛋白，小分子易吸收款",
+                benefits: "改善肌肤干燥松弛外观，锁水充盈，让肌肤看起来更饱满平滑",
+                products: "全品类护肤品，尤其适配紧致霜、面霜、精华、眼霜",
+                risks: "无明确急性刺激性，原料纯度不足易引发轻微致敏，全肤质适配，合规添加量0.1%-5%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "凡士林",
+                englishName: "Petroleum Jelly",
+                scientificName: "矿脂",
+                benefits: "超强封闭锁水，改善肌肤干裂起皮外观，减少肌肤水分流失",
+                products: "手足霜、面霜、皲裂膏、唇膏、身体乳",
+                risks: "无明确急性危害，油皮高浓度使用易出现闷肤感，合规添加量1%-30%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "甘油",
+                englishName: "Glycerin",
+                scientificName: "丙三醇",
+                benefits: "基础补水保湿，抓取环境水分滋润肌肤，改善干燥脱屑外观，是全品类产品必备核心成分",
+                products: "全品类护肤品、口腔护理产品",
+                risks: "浓度＞40%时会反向吸收肌肤自身水分，导致紧绷拔干；工业级甘油纯度不足易引发致敏，合规添加量2%-20%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "维生素B5",
+                englishName: "Vitamin B5",
+                scientificName: "泛醇",
+                benefits: "渗透保湿，改善肌肤干燥起皮外观，舒缓肌肤不适，呵护受损肌肤外观",
+                products: "全品类护肤品，面霜、手足霜、精华、洗发水、唇部产品",
+                risks: "极个别高敏感人群可能出现接触性皮炎，无普遍性危害，合规添加量0.2%-5%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "维生素E",
+                englishName: "Vitamin E",
+                scientificName: "生育酚",
+                benefits: "保湿滋润，改善肌肤干燥粗糙外观，辅助稳定配方，让肌肤看起来更顺滑有光泽",
+                products: "全品类护肤品，面霜、手足霜、精华、眼霜、唇膏",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，过量添加易出现黏腻感，合规添加量0.1%-5%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "神经酰胺",
+                englishName: "Ceramide",
+                scientificName: "",
+                benefits: "补充肌肤表层脂质，改善肌肤屏障受损的干燥脱屑外观，锁水呵护，让肌肤看起来更稳定强韧",
+                products: "敏感肌面霜、精华、眼霜、身体乳、手霜",
+                risks: "无明确急性危害，原料纯度不足、溶剂残留易引发接触性皮炎，过量添加易搓泥，合规添加量0.01%-1%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "角鲨烷",
+                englishName: "Squalane",
+                scientificName: "植物/动物来源",
+                benefits: "与肌肤皮脂结构相融，亲肤锁水，改善肌肤干燥粗糙外观，呵护皮脂膜",
+                products: "全品类护肤品，面霜、手足霜、精华、眼霜、唇部产品",
+                risks: "油皮、痘肌高浓度使用易加重毛孔堵塞、闷痘风险，合规添加量0.5%-5%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "羊毛脂",
+                englishName: "Lanolin",
+                scientificName: "",
+                benefits: "高保湿锁水，改善肌肤干裂起皮外观，减少水分流失，柔润肌肤",
+                products: "手足霜、面霜、皲裂膏、唇膏",
+                risks: "未精制的粗制羊毛脂易致敏，需选用精制级原料，合规添加量0.5%-20%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "乳木果油",
+                englishName: "Shea Butter",
+                scientificName: "",
+                benefits: "深层滋养保湿，改善肌肤干燥粗糙外观，柔润肌肤，让肌肤看起来更顺滑有光泽",
+                products: "手足霜、面霜、身体乳、唇膏",
+                risks: "未精制的粗制乳木果油易致敏，需选用精制级原料，油皮过量使用易闷痘，合规添加量1%-20%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "霍霍巴油",
+                englishName: "Jojoba Oil",
+                scientificName: "",
+                benefits: "清爽保湿，与肌肤皮脂结构相融，亲肤不油腻，改善肌肤干燥外观，辅助调节肌肤水油观感",
+                products: "面霜、精华、眼霜、身体乳、护发产品",
+                risks: "无明确急性危害，油皮过量使用易轻微闷痘，合规添加量0.5%-10%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "芦荟胶/芦荟提取物",
+                englishName: "Aloe",
+                scientificName: "库拉索芦荟叶汁",
+                benefits: "补水保湿，舒缓肌肤不适，改善泛红、干燥外观，维持肌肤稳定状态",
+                products: "全品类护肤品，面霜、精华、爽肤水、面膜、晒后护理产品",
+                risks: "芦荟素未脱除干净易引发致敏，需选用脱苦脱醛原料，敏肌需先做皮肤测试，合规添加量0.5%-10%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "甜菜碱",
+                englishName: "Betaine",
+                scientificName: "",
+                benefits: "天然保湿，改善肌肤干燥紧绷外观，舒缓肌肤不适，降低产品刺激性",
+                products: "全品类护肤品，爽肤水、洁面、精华、面膜、洗发水",
+                risks: "无明确急性危害，过量添加易出现黏腻感，合规添加量0.3%-5%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "海藻糖",
+                englishName: "Trehalose",
+                scientificName: "",
+                benefits: "锁水保湿，改善肌肤干燥紧绷外观，呵护肌肤屏障，降低外界刺激对肌肤的影响",
+                products: "全品类护肤品，面霜、手足霜、精华、面膜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.5%-5%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "银耳多糖",
+                englishName: "Tremella Polysaccharide",
+                scientificName: "",
+                benefits: "天然植物保湿成分，高保湿锁水，改善肌肤干燥外观，让肌肤看起来更水润饱满",
+                products: "全品类护肤品，面霜、精华、爽肤水、面膜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-3%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "复合氨基酸",
+                englishName: "Amino Acid Complex",
+                scientificName: "",
+                benefits: "补水保湿，改善肌肤干燥外观，呵护肌肤屏障，让肌肤看起来更健康",
+                products: "全品类护肤品，洁面、精华、面霜、面膜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-5%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "尿囊素",
+                englishName: "Allantoin",
+                scientificName: "",
+                benefits: "保湿滋润，舒缓肌肤不适，改善干燥起皮外观，让肌肤看起来更平滑",
+                products: "全品类护肤品，面霜、手足霜、精华、面膜、皲裂膏",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-2%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "橄榄油",
+                englishName: "Olive Oil",
+                scientificName: "",
+                benefits: "滋养润肤，改善肌肤干燥粗糙、干裂外观，补充肌肤脂质，柔润肌肤",
+                products: "手足霜、面霜、身体乳、精油",
+                risks: "未精制的粗制橄榄油易致敏，需选用冷榨精制级原料，油皮过量使用易闷痘，合规添加量0.5%-10%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "椰子油",
+                englishName: "Coconut Oil",
+                scientificName: "",
+                benefits: "封闭保湿，改善肌肤干燥粗糙外观，柔润肌肤，减少水分流失",
+                products: "手足霜、面霜、身体乳、唇膏",
+                risks: "油皮高浓度使用易闷痘，需控制添加量，合规添加量0.5%-15%"
+            },
+            {
+                category: "基础保湿锁水类",
+                name: "牛油果油",
+                englishName: "Avocado Oil",
+                scientificName: "",
+                benefits: "滋养修护，保湿锁水，改善肌肤干燥粗糙外观，补充肌肤脂质，让肌肤看起来更柔润",
+                products: "面霜、眼霜、身体乳、手足霜",
+                risks: "无明确急性危害，油皮过量使用易轻微闷痘，合规添加量0.5%-10%"
+            },
+            
+            // 紧致抗老提拉类
+            {
+                category: "紧致抗老提拉类",
+                name: "玻色因",
+                englishName: "Proxylan",
+                scientificName: "羟丙基四氢吡喃三醇",
+                benefits: "滋润调理肌肤，改善肌肤干燥松弛外观，让肌肤看起来更饱满紧致",
+                products: "全品类抗老产品，面霜、精华、眼霜、颈霜、身体乳",
+                risks: "无明确强刺激性，敏肌、孕妇均可使用，过量添加易出现黏腻感，合规添加量3%-10%"
+            },
+            {
+                category: "紧致抗老提拉类",
+                name: "维生素A醇",
+                englishName: "Retinol",
+                scientificName: "视黄醇",
+                benefits: "调理肌肤，改善肌肤松弛、干纹细纹外观，让肌肤看起来更平滑紧致",
+                products: "抗老面霜、精华、眼霜、身体乳",
+                risks: "高浓度易引发泛红、脱皮、刺痛、光敏性，孕妇、备孕期慎用；需逐步建立耐受，欧美站点合规添加量0.05%-0.5%，国内站点0.1%-1%"
+            },
+            {
+                category: "紧致抗老提拉类",
+                name: "温和A醇",
+                englishName: "Retinol Palmitate",
+                scientificName: "视黄醇棕榈酸酯/视黄醇乙酸酯",
+                benefits: "柔润调理肌肤，改善肌肤粗糙、干纹外观，让肌肤看起来更紧致有光泽，新手友好",
+                products: "面霜、眼霜、身体乳、精华",
+                risks: "刺激性远低于视黄醇，仍有轻微光敏性，孕妇、备孕期慎用，合规添加量0.5%-5%"
+            },
+            {
+                category: "紧致抗老提拉类",
+                name: "进阶A醇",
+                englishName: "Hydroxypinacolone Retinoate",
+                scientificName: "羟基频哪酮视黄酸酯",
+                benefits: "调理肌肤，改善肌肤松弛、干纹细纹外观，让肌肤看起来更平滑紧致，无需转化直接起效，温和高效",
+                products: "精华、眼霜、面霜",
+                risks: "刺激性低于视黄醇，仍有轻微光敏性，孕妇、备孕期慎用，合规添加量0.1%-1%"
+            },
+            {
+                category: "紧致抗老提拉类",
+                name: "六胜肽",
+                englishName: "Acetyl Hexapeptide-8",
+                scientificName: "乙酰基六肽-8",
+                benefits: "调理肌肤，改善面部动态纹、表情纹外观，让肌肤看起来更平滑细腻",
+                products: "眼霜、紧致霜、精华、面霜",
+                risks: "无明确急性刺激性，原料纯度不足易引发轻微致敏，全肤质适配，合规添加量0.005%-0.5%"
+            },
+            {
+                category: "紧致抗老提拉类",
+                name: "类蛇毒肽",
+                englishName: "Dipeptide Diaminobutyroyl Benzylamide Diacetate",
+                scientificName: "二肽二氨基丁酰苄基酰胺二乙酸盐",
+                benefits: "调理肌肤，改善面部表情纹、干纹外观，让肌肤看起来更平滑紧致",
+                products: "眼霜、紧致精华、面霜",
+                risks: "无明确急性刺激性，极低致敏风险，合规添加量0.005%-0.2%"
+            },
+            {
+                category: "紧致抗老提拉类",
+                name: "芋螺肽",
+                englishName: "Conopeptide",
+                scientificName: "",
+                benefits: "调理肌肤，强效改善面部动态纹、鱼尾纹外观，让肌肤看起来更平滑紧致",
+                products: "高端抗老眼霜、精华、面霜",
+                risks: "无明确急性刺激性，原料纯度不足易引发轻微致敏，合规添加量0.001%-0.1%"
+            },
+            {
+                category: "紧致抗老提拉类",
+                name: "蓝铜胜肽",
+                englishName: "Copper Peptide / Tripeptide-1 Copper",
+                scientificName: "三肽-1铜",
+                benefits: "调理肌肤，改善粗糙、松弛外观，让肌肤看起来更平滑饱满，同时舒缓肌肤不适，维持肌肤稳定",
+                products: "精华、面霜、眼霜",
+                risks: "无明确急性刺激性，原料纯度不足易引发轻微致敏，不可与强酸性成分复配，合规添加量0.001%-0.5%"
+            },
+            {
+                category: "紧致抗老提拉类",
+                name: "五胜肽",
+                englishName: "Palmitoyl Pentapeptide-4",
+                scientificName: "棕榈酰五肽-4",
+                benefits: "调理肌肤，改善肌肤松弛、干纹外观，让肌肤看起来更紧致平滑",
+                products: "面霜、精华、身体乳",
+                risks: "无明确急性刺激性，极低致敏风险，全肤质适配，合规添加量0.005%-0.5%"
+            },
+            {
+                category: "紧致抗老提拉类",
+                name: "四胜肽",
+                englishName: "Palmitoyl Tetrapeptide-7",
+                scientificName: "棕榈酰四肽-7",
+                benefits: "舒缓肌肤不适，改善肌肤松弛、干纹外观，让肌肤看起来更平滑健康，适配敏感肌抗老",
+                products: "敏感肌抗老产品、眼霜、面霜、精华",
+                risks: "无明确急性刺激性，极低致敏风险，合规添加量0.005%-0.5%"
+            },
+            
+            // 提亮美白焕肤类
+            {
+                category: "提亮美白焕肤类",
+                name: "烟酰胺",
+                englishName: "Niacinamide",
+                scientificName: "维生素B3",
+                benefits: "改善肤色不均、暗沉外观，提亮肌肤光泽，让肌肤看起来更匀净；同时改善肌肤油腻外观，让肌肤看起来更清爽",
+                products: "全品类提亮产品，面霜、精华、身体乳、爽肤水、眼霜",
+                risks: "浓度＞5%易引发刺痛、泛红、不耐受，需逐步建立耐受；原料杂质烟酸超标易引发灼热感，合规添加量2%-5%"
+            },
+            {
+                category: "提亮美白焕肤类",
+                name: "熊果苷",
+                englishName: "Arbutin",
+                scientificName: "分α/β型，α型提亮效果更强",
+                benefits: "改善肤色暗沉、不均外观，提亮肌肤光泽，让肌肤看起来更匀净透亮",
+                products: "全品类提亮产品，面霜、精华、身体乳、眼霜",
+                risks: "α型浓度＞7%、β型浓度＞10%可能引发肌肤刺激，无明确光敏性，合规添加量0.2%-7%"
+            },
+            {
+                category: "提亮美白焕肤类",
+                name: "维生素C",
+                englishName: "Vitamin C",
+                scientificName: "抗坏血酸",
+                benefits: "改善肌肤暗沉外观，提亮肌肤光泽，让肌肤看起来更透亮匀净",
+                products: "提亮精华、面霜、爽肤水",
+                risks: "高浓度添加易引发刺痛、泛红，稳定性差易失活，有轻微光敏性，需做好防晒，合规添加量0.5%-10%"
+            },
+            {
+                category: "提亮美白焕肤类",
+                name: "稳定型维生素C",
+                englishName: "Vitamin C Derivatives",
+                scientificName: "抗坏血酸葡糖苷/VC乙基醚/VCIP",
+                benefits: "改善肌肤暗沉、不均外观，提亮肌肤光泽，让肌肤看起来更透亮匀净，温和不刺激，稳定不易失活",
+                products: "敏感肌提亮产品、面霜、眼霜、精华、身体乳",
+                risks: "刺激性远低于原型VC，极低致敏风险，全肤质适配，合规添加量0.5%-5%"
+            },
+            {
+                category: "提亮美白焕肤类",
+                name: "传明酸",
+                englishName: "Tranexamic Acid",
+                scientificName: "凝血酸/氨甲环酸",
+                benefits: "改善肤色不均、暗沉外观，提亮肌肤光泽，让肌肤看起来更匀净透亮",
+                products: "精华、面霜、眼霜",
+                risks: "高浓度添加易引发肌肤刺激，孕妇、备孕期慎用，合规添加量0.5%-3%"
+            },
+            {
+                category: "提亮美白焕肤类",
+                name: "光甘草定",
+                englishName: "Glabridin",
+                scientificName: "光果甘草提取物",
+                benefits: "改善肤色不均、泛红、暗沉外观，提亮肌肤光泽，让肌肤看起来更匀净健康",
+                products: "高端提亮产品，精华、面霜、眼霜",
+                risks: "无明确急性刺激性，极低致敏风险，全肤质适配，合规添加量0.1%-2%"
+            },
+            {
+                category: "提亮美白焕肤类",
+                name: "曲酸",
+                englishName: "Kojic Acid",
+                scientificName: "",
+                benefits: "改善肤色暗沉、不均外观，提亮肌肤光泽，让肌肤看起来更匀净透亮",
+                products: "精华、面霜",
+                risks: "高浓度添加易引发肌肤刺激，稳定性差易失活，孕妇、备孕期慎用，合规添加量0.5%-2%"
+            },
+            {
+                category: "提亮美白焕肤类",
+                name: "谷胱甘肽",
+                englishName: "Glutathione",
+                scientificName: "",
+                benefits: "改善肌肤暗沉外观，提亮肌肤光泽，让肌肤看起来更透亮匀净",
+                products: "精华、面霜、身体乳",
+                risks: "无明确急性危害，极个别敏肌可能出现轻微致敏，合规添加量0.1%-3%"
+            },
+            {
+                category: "提亮美白焕肤类",
+                name: "水杨酸",
+                englishName: "Salicylic Acid",
+                scientificName: "邻羟基苯甲酸",
+                benefits: "清洁毛孔内污垢，去除肌肤表面老废角质，改善油腻、粗糙、暗沉外观，让肌肤看起来更清爽平滑",
+                products: "面霜、精华、爽肤水、沐浴露、身体乳",
+                risks: "浓度＞2%易引发刺痛、泛红、脱皮，孕妇、备孕期慎用，有轻微光敏性，需搭配防晒，化妆品合规上限2%"
+            },
+            {
+                category: "提亮美白焕肤类",
+                name: "果酸",
+                englishName: "Fruit Acid / AHA",
+                scientificName: "甘醇酸/乳酸/杏仁酸",
+                benefits: "软化肌肤表面老废角质，改善粗糙、暗沉外观，让肌肤看起来更平滑透亮",
+                products: "面霜、手足霜、爽肤水、身体乳、磨砂膏",
+                risks: "浓度＞10%易引发刺痛、泛红，有光敏性，需搭配防晒，孕妇、敏肌慎用，化妆品合规上限10%"
+            },
+            
+            // 舒缓修护敏感肌类
+            {
+                category: "舒缓修护敏感肌类",
+                name: "积雪草提取物",
+                englishName: "Centella Asiatica",
+                scientificName: "老虎草",
+                benefits: "舒缓肌肤不适，改善泛红外观，呵护肌肤屏障，维持肌肤稳定状态",
+                products: "敏感肌面霜、精华、眼霜、爽肤水、面膜、身体乳",
+                risks: "极个别高敏感人群可能出现接触性皮炎，无普遍性危害，合规添加量0.1%-2%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "芦荟提取物",
+                englishName: "Aloe",
+                scientificName: "库拉索芦荟",
+                benefits: "舒缓肌肤不适，改善泛红、干燥外观，晒后呵护，维持肌肤水润状态",
+                products: "全品类护肤品，面霜、精华、爽肤水、面膜、晒后护理产品",
+                risks: "芦荟素未脱除干净易引发致敏，需选用脱苦脱醛原料，敏肌需先做皮肤测试，合规添加量0.5%-10%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "洋甘菊提取物",
+                englishName: "Chamomile",
+                scientificName: "母菊/德国洋甘菊",
+                benefits: "舒缓肌肤不适，改善泛红外观，温和呵护敏感肌肤，维持肌肤稳定",
+                products: "敏感肌专属全品类护肤品，面霜、精华、爽肤水、面膜",
+                risks: "对菊科植物过敏者禁用，极个别敏肌可能出现致敏，合规添加量0.1%-5%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "金盏花提取物",
+                englishName: "Calendula",
+                scientificName: "",
+                benefits: "舒缓肌肤不适，改善泛红外观，收敛保湿，维持肌肤稳定状态",
+                products: "全品类护肤品，爽肤水、面霜、精华、面膜、身体乳",
+                risks: "对菊科植物过敏者禁用，极个别敏肌可能出现致敏，合规添加量0.1%-5%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "金缕梅提取物",
+                englishName: "Witch Hazel",
+                scientificName: "",
+                benefits: "舒缓肌肤不适，改善油腻外观，收敛清洁，让肌肤看起来更清爽稳定",
+                products: "油皮面霜、精华、爽肤水、洁面、身体乳",
+                risks: "无明确急性危害，极个别干敏肌可能出现紧绷感，合规添加量0.1%-5%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "红没药醇",
+                englishName: "Bisabolol",
+                scientificName: "姜根提取物",
+                benefits: "舒缓肌肤不适，改善泛红外观，降低产品刺激性，维持肌肤稳定",
+                products: "敏感肌面霜、眼霜、精华、身体乳",
+                risks: "无明确急性危害，原料纯度不足易引发致敏，合规添加量0.1%-1%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "甘草酸二钾",
+                englishName: "Dipotassium Glycyrrhizate",
+                scientificName: "甘草提取物",
+                benefits: "舒缓肌肤不适，改善泛红外观，降低产品刺激性，维持肌肤稳定",
+                products: "全品类护肤品，面霜、精华、爽肤水、面膜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-2%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "依克多因",
+                englishName: "Ectoin",
+                scientificName: "",
+                benefits: "强修护抗应激，改善泛红、干燥外观，晒后呵护，维持肌肤稳定状态",
+                products: "敏感肌全品类产品，面霜、精华、眼霜、面膜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-3%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "马齿苋提取物",
+                englishName: "Portulaca Oleracea",
+                scientificName: "",
+                benefits: "舒缓抗敏，改善泛红外观，降低产品刺激性，维持肌肤稳定",
+                products: "全品类护肤品，面霜、精华、爽肤水、面膜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-5%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "紫苏叶提取物",
+                englishName: "Perilla",
+                scientificName: "",
+                benefits: "抗炎舒缓，改善泛红外观，维持肌肤稳定状态",
+                products: "敏感肌产品，面霜、精华、爽肤水",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.1%-3%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "仙人掌提取物",
+                englishName: "Cactus",
+                scientificName: "",
+                benefits: "保湿舒缓，改善干燥外观，晒后呵护，维持肌肤水润状态",
+                products: "全品类护肤品，面霜、精华、爽肤水、面膜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-5%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "燕麦提取物",
+                englishName: "Oat",
+                scientificName: "",
+                benefits: "舒缓抗敏，改善泛红外观，维持肌肤稳定状态",
+                products: "敏感肌面霜、精华、面膜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-5%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "茶树精油/提取物",
+                englishName: "Tea Tree",
+                scientificName: "",
+                benefits: "抗炎抑菌，改善油腻外观，控油祛痘，维持肌肤清爽状态",
+                products: "痘肌产品，面霜、精华、爽肤水、洁面",
+                risks: "高浓度易引发刺激，孕妇、敏肌慎用，合规添加量0.1%-2%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "迷迭香提取物",
+                englishName: "Rosemary",
+                scientificName: "",
+                benefits: "抗氧化+抗炎，改善肌肤状态，维持肌肤健康外观",
+                products: "全品类护肤品，面霜、精华、爽肤水",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.1%-5%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "铁皮石斛提取物",
+                englishName: "Dendrobium",
+                scientificName: "",
+                benefits: "保湿修护，舒缓抗敏，改善干燥外观，维持肌肤稳定状态",
+                products: "面霜、精华、面膜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-3%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "麦冬提取物",
+                englishName: "Ophiopogon Japonicus",
+                scientificName: "",
+                benefits: "保湿修护屏障，改善干燥外观，维持肌肤稳定状态",
+                products: "全品类护肤品，面霜、精华、面膜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-5%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "苦参根提取物",
+                englishName: "Sophora Flavescens",
+                scientificName: "",
+                benefits: "抗炎抑菌，改善油腻外观，控油祛痘，维持肌肤清爽状态",
+                products: "痘肌、敏感肌产品，面霜、精华、洁面",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.1%-3%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "羟苯基丙酰胺苯甲酸",
+                englishName: "Dihydroavenanthramide",
+                scientificName: "二氢燕麦生物碱",
+                benefits: "舒缓抗敏，改善泛红瘙痒外观，维持肌肤稳定状态",
+                products: "敏感肌产品，面霜、精华、身体乳",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.01%-0.5%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "假叶树提取物",
+                englishName: "Butcher's Broom",
+                scientificName: "",
+                benefits: "抗炎舒缓，改善泛红外观，维持肌肤稳定状态",
+                products: "面霜、眼霜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-3%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "七叶树提取物",
+                englishName: "Horse Chestnut",
+                scientificName: "",
+                benefits: "抗炎舒缓，改善循环，维持肌肤稳定状态",
+                products: "全品类护肤品，面霜、精华、眼霜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-3%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "泛醇",
+                englishName: "Panthenol",
+                scientificName: "维生素B5的学名",
+                benefits: "修护受损皮肤，舒缓肌肤不适，改善干燥外观，维持肌肤稳定状态",
+                products: "全品类护肤品，面霜、精华、洗发水、唇部产品",
+                risks: "极个别高敏感人群可能出现接触性皮炎，无普遍性危害，合规添加量0.2%-5%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "尿囊素",
+                englishName: "Allantoin",
+                scientificName: "",
+                benefits: "舒缓促愈合，保湿修护，改善干燥起皮外观，让肌肤看起来更平滑",
+                products: "全品类护肤品，面霜、手足霜、精华、面膜、皲裂膏",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-2%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "蓝铜胜肽",
+                englishName: "Copper Peptide",
+                scientificName: "三肽-1铜",
+                benefits: "修护+舒缓，改善粗糙外观，让肌肤看起来更平滑饱满，同时维持肌肤稳定",
+                products: "敏感肌抗老产品，精华、面霜、眼霜",
+                risks: "无明确急性刺激性，原料纯度不足易引发轻微致敏，不可与强酸性成分复配，合规添加量0.001%-0.5%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "二裂酵母发酵产物",
+                englishName: "Bifida Ferment Lysate",
+                scientificName: "",
+                benefits: "强韧屏障，修护受损，改善干燥外观，维持肌肤稳定状态",
+                products: "精华、面霜、面膜",
+                risks: "无明确急性危害，原料纯度不足易引发致敏，合规添加量0.5%-10%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "乳酸菌发酵溶胞产物",
+                englishName: "Lactobacillus Ferment Lysate",
+                scientificName: "",
+                benefits: "修护屏障，舒缓维稳，改善肌肤状态，维持肌肤健康外观",
+                products: "全品类护肤品，面霜、精华、面膜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-5%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "金银花提取物",
+                englishName: "Honeysuckle",
+                scientificName: "",
+                benefits: "抗炎舒缓，抑菌祛痘，改善泛红外观，维持肌肤稳定状态",
+                products: "痘肌、敏感肌产品，面霜、精华、爽肤水",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.1%-5%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "连翘提取物",
+                englishName: "Forsythia",
+                scientificName: "",
+                benefits: "抗炎舒缓，改善泛红外观，维持肌肤稳定状态",
+                products: "全品类护肤品，面霜、精华、面膜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-3%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "鱼腥草提取物",
+                englishName: "Houttuynia Cordata",
+                scientificName: "",
+                benefits: "抗炎舒缓，控油祛痘，改善油腻外观，维持肌肤清爽状态",
+                products: "痘肌产品，面霜、精华、爽肤水",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.1%-5%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "菊花提取物",
+                englishName: "Chrysanthemum",
+                scientificName: "",
+                benefits: "舒缓抗炎，改善泛红外观，晒后呵护，维持肌肤稳定状态",
+                products: "全品类护肤品，面霜、精华、面膜、晒后护理产品",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-5%"
+            },
+
+            // 眼部护理专属类
+            {
+                category: "眼部护理专属类",
+                name: "咖啡因",
+                englishName: "Caffeine",
+                scientificName: "",
+                benefits: "消水肿，改善黑眼圈、眼袋外观，让眼周看起来更紧致明亮",
+                products: "眼霜，TEMU眼霜最高频成分",
+                risks: "无明确急性刺激性，浓度＞5%可能引发轻微刺激，合规添加量0.5%-5%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "维生素A醇",
+                englishName: "Retinol",
+                scientificName: "视黄醇",
+                benefits: "淡化眼周细纹，紧致眼周，让眼周看起来更平滑年轻",
+                products: "抗老眼霜",
+                risks: "高浓度易引发眼周泛红、脱皮、刺痛、光敏性，孕妇、备孕期慎用；需逐步建立耐受，欧美站点合规添加量0.05%-0.5%，国内站点0.1%-1%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "温和A醇",
+                englishName: "Retinol Palmitate",
+                scientificName: "视黄醇棕榈酸酯/HPR",
+                benefits: "温和淡纹，新手友好，让眼周看起来更平滑有光泽",
+                products: "眼霜",
+                risks: "刺激性远低于视黄醇，仍有轻微光敏性，孕妇、备孕期慎用，合规添加量0.5%-5%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "六胜肽",
+                englishName: "Acetyl Hexapeptide-8",
+                scientificName: "类肉毒素",
+                benefits: "淡化眼周动态纹、鱼尾纹，让眼周看起来更平滑细腻",
+                products: "眼霜",
+                risks: "无明确急性刺激性，原料纯度不足易引发轻微致敏，全肤质适配，合规添加量0.005%-0.5%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "类蛇毒肽",
+                englishName: "Dipeptide Diaminobutyroyl Benzylamide Diacetate",
+                scientificName: "",
+                benefits: "淡化眼周表情纹，紧致眼周，让眼周看起来更平滑年轻",
+                products: "眼霜",
+                risks: "无明确急性刺激性，极低致敏风险，合规添加量0.005%-0.2%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "乙酰基四肽-5",
+                englishName: "Acetyl Tetrapeptide-5",
+                scientificName: "眼丽士肽",
+                benefits: "消水肿，淡化黑眼圈，让眼周看起来更明亮紧致",
+                products: "眼霜",
+                risks: "无明确急性刺激性，极低致敏风险，全肤质适配，合规添加量0.001%-0.5%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "二肽-2",
+                englishName: "Dipeptide-2",
+                scientificName: "",
+                benefits: "消水肿，改善眼袋，让眼周看起来更紧致",
+                products: "眼霜",
+                risks: "无明确急性刺激性，极低致敏风险，全肤质适配，合规添加量0.001%-0.5%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "七叶树提取物/七叶皂苷",
+                englishName: "Horse Chestnut",
+                scientificName: "",
+                benefits: "改善眼周循环，消水肿+淡化黑眼圈，让眼周看起来更明亮",
+                products: "眼霜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-5%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "假叶树提取物",
+                englishName: "Butcher's Broom",
+                scientificName: "",
+                benefits: "改善循环，消水肿，让眼周看起来更紧致",
+                products: "眼霜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-3%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "橙皮苷甲基查尔酮",
+                englishName: "Hesperidin Methyl Chalcone",
+                scientificName: "",
+                benefits: "改善血管型黑眼圈，让眼周看起来更明亮",
+                products: "眼霜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-2%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "玻色因",
+                englishName: "Proxylan",
+                scientificName: "",
+                benefits: "紧致眼周，修护眼周屏障，让眼周看起来更饱满年轻",
+                products: "眼霜",
+                risks: "无明确强刺激性，敏肌、孕妇均可使用，过量添加易出现黏腻感，合规添加量3%-10%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "透明质酸",
+                englishName: "Hyaluronic Acid",
+                scientificName: "透明质酸钠",
+                benefits: "补水保湿，淡化眼周干纹，让眼周看起来更水润饱满",
+                products: "全品类眼霜",
+                risks: "浓度＞2%时易出现搓泥、黏腻感；极端敏感肌高浓度下可能出现轻微泛红，全球合规添加量0.05%-2%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "胶原蛋白",
+                englishName: "Collagen",
+                scientificName: "",
+                benefits: "充盈眼周，淡化细纹，让眼周看起来更饱满平滑",
+                products: "眼霜",
+                risks: "无明确急性刺激性，原料纯度不足易引发轻微致敏，全肤质适配，合规添加量0.1%-5%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "神经酰胺",
+                englishName: "Ceramide",
+                scientificName: "",
+                benefits: "修护眼周屏障，保湿锁水，让眼周看起来更稳定强韧",
+                products: "眼霜",
+                risks: "无明确急性危害，原料纯度不足、溶剂残留易引发接触性皮炎，过量添加易搓泥，合规添加量0.01%-1%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "角鲨烷",
+                englishName: "Squalane",
+                scientificName: "",
+                benefits: "保湿修护，让眼周看起来更柔润平滑",
+                products: "眼霜",
+                risks: "油皮、痘肌高浓度使用易加重毛孔堵塞、闷痘风险，合规添加量0.5%-5%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "维生素E",
+                englishName: "Vitamin E",
+                scientificName: "生育酚",
+                benefits: "抗氧化保湿，让眼周看起来更顺滑有光泽",
+                products: "眼霜",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，过量添加易出现黏腻感，合规添加量0.1%-5%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "维生素C",
+                englishName: "Vitamin C",
+                scientificName: "VC衍生物",
+                benefits: "提亮淡化黑眼圈，让眼周看起来更明亮匀净",
+                products: "眼霜",
+                risks: "高浓度添加易引发眼周刺激，稳定性差易失活，有轻微光敏性，需做好防晒，合规添加量0.5%-5%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "烟酰胺",
+                englishName: "Niacinamide",
+                scientificName: "维生素B3",
+                benefits: "提亮淡化黑眼圈，控油，让眼周看起来更明亮清爽",
+                products: "眼霜",
+                risks: "浓度＞5%易引发眼周刺痛、泛红、不耐受，需逐步建立耐受；原料杂质烟酸超标易引发灼热感，合规添加量2%-5%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "光果甘草提取物",
+                englishName: "Licorice",
+                scientificName: "",
+                benefits: "提亮淡化黑眼圈，抗炎舒缓，让眼周看起来更明亮健康",
+                products: "眼霜",
+                risks: "无明确急性刺激性，极低致敏风险，全肤质适配，合规添加量0.1%-2%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "洋甘菊提取物",
+                englishName: "Chamomile",
+                scientificName: "",
+                benefits: "舒缓眼周，改善泛红，让眼周看起来更稳定舒适",
+                products: "眼霜",
+                risks: "对菊科植物过敏者禁用，极个别敏肌可能出现致敏，合规添加量0.1%-5%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "金盏花提取物",
+                englishName: "Calendula",
+                scientificName: "",
+                benefits: "舒缓眼周，保湿收敛，让眼周看起来更稳定舒适",
+                products: "眼霜",
+                risks: "对菊科植物过敏者禁用，极个别敏肌可能出现致敏，合规添加量0.1%-5%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "芦荟提取物",
+                englishName: "Aloe",
+                scientificName: "",
+                benefits: "舒缓保湿，让眼周看起来更水润舒适",
+                products: "眼霜",
+                risks: "芦荟素未脱除干净易引发致敏，需选用脱苦脱醛原料，敏肌需先做皮肤测试，合规添加量0.5%-10%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "积雪草提取物",
+                englishName: "Centella Asiatica",
+                scientificName: "",
+                benefits: "修护眼周屏障，舒缓泛红，让眼周看起来更稳定强韧",
+                products: "眼霜",
+                risks: "极个别高敏感人群可能出现接触性皮炎，无普遍性危害，合规添加量0.1%-2%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "芋螺肽",
+                englishName: "Conopeptide",
+                scientificName: "",
+                benefits: "强效淡化眼周动态纹，让眼周看起来更平滑年轻",
+                products: "高端抗老眼霜",
+                risks: "无明确急性刺激性，原料纯度不足易引发轻微致敏，合规添加量0.001%-0.1%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "蓝铜胜肽",
+                englishName: "Copper Peptide",
+                scientificName: "",
+                benefits: "修护眼周，淡化细纹，让眼周看起来更平滑饱满",
+                products: "敏感肌眼霜",
+                risks: "无明确急性刺激性，原料纯度不足易引发轻微致敏，不可与强酸性成分复配，合规添加量0.001%-0.5%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "肌肽",
+                englishName: "Carnosine",
+                scientificName: "",
+                benefits: "抗糖抗氧，淡化眼周细纹，让眼周看起来更年轻",
+                products: "眼霜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-3%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "辅酶Q10",
+                englishName: "Coenzyme Q10",
+                scientificName: "",
+                benefits: "抗氧化抗老，淡化眼周细纹，让眼周看起来更年轻",
+                products: "眼霜",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.1%-2%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "虾青素",
+                englishName: "Astaxanthin",
+                scientificName: "",
+                benefits: "抗氧化，改善眼周暗沉，让眼周看起来更明亮",
+                products: "眼霜",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.01%-0.5%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "叶黄素",
+                englishName: "Lutein",
+                scientificName: "",
+                benefits: "抗氧化，保护眼周皮肤，让眼周看起来更健康",
+                products: "眼霜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-1%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "玉米黄质",
+                englishName: "Zeaxanthin",
+                scientificName: "",
+                benefits: "抗氧化，让眼周看起来更健康年轻",
+                products: "眼霜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-1%"
+            },
+
+            // 手足护理专属类
+            {
+                category: "手足护理专属类",
+                name: "凡士林",
+                englishName: "Petroleum Jelly",
+                scientificName: "矿脂",
+                benefits: "超强封闭锁水，修护干裂，改善手脚粗糙硬皮外观，减少水分流失",
+                products: "手足霜、皲裂膏，最高频成分",
+                risks: "无明确急性危害，油皮高浓度使用易出现闷肤感，合规添加量1%-30%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "尿素",
+                englishName: "Urea",
+                scientificName: "",
+                benefits: "软化角质+深层保湿，改善手脚干裂硬皮，让肌肤看起来更柔软平滑",
+                products: "手足霜，核心成分",
+                risks: "浓度＞20%可能引发轻微刺激，合规添加量5%-20%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "乳木果油",
+                englishName: "Shea Butter",
+                scientificName: "",
+                benefits: "深层滋养保湿，柔润粗糙皮肤，让手脚看起来更顺滑有光泽",
+                products: "手足霜",
+                risks: "未精制的粗制乳木果油易致敏，需选用精制级原料，油皮过量使用易闷痘，合规添加量1%-20%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "羊毛脂",
+                englishName: "Lanolin",
+                scientificName: "",
+                benefits: "高保湿锁水，防干裂，改善手脚粗糙外观，减少水分流失",
+                products: "手足霜、皲裂膏",
+                risks: "未精制的粗制羊毛脂易致敏，需选用精制级原料，合规添加量0.5%-20%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "甘油",
+                englishName: "Glycerin",
+                scientificName: "",
+                benefits: "基础补水保湿，抓取环境水分滋润肌肤，改善干燥脱屑外观，是全手足产品必备",
+                products: "全手足产品",
+                risks: "浓度＞40%时会反向吸收肌肤自身水分，导致紧绷拔干；工业级甘油纯度不足易引发致敏，合规添加量2%-20%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "维生素E",
+                englishName: "Vitamin E",
+                scientificName: "生育酚",
+                benefits: "抗氧化保湿，修护干裂，让手脚看起来更顺滑有光泽",
+                products: "手足霜",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，过量添加易出现黏腻感，合规添加量0.1%-5%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "维生素B5",
+                englishName: "Vitamin B5",
+                scientificName: "泛醇",
+                benefits: "修护受损皮肤，保湿舒缓，改善干裂外观，让手脚看起来更健康",
+                products: "手足霜",
+                risks: "极个别高敏感人群可能出现接触性皮炎，无普遍性危害，合规添加量0.2%-5%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "蜂蜡",
+                englishName: "Beeswax",
+                scientificName: "",
+                benefits: "封闭锁水，修护干裂，改善手脚粗糙外观，减少水分流失",
+                products: "手足霜、皲裂膏",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量1%-15%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "椰子油",
+                englishName: "Coconut Oil",
+                scientificName: "",
+                benefits: "保湿柔润，改善粗糙，让手脚看起来更柔软平滑",
+                products: "手足霜",
+                risks: "油皮高浓度使用易闷痘，需控制添加量，合规添加量0.5%-15%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "橄榄油",
+                englishName: "Olive Oil",
+                scientificName: "",
+                benefits: "滋养修护，防干裂，改善手脚粗糙干裂外观，补充肌肤脂质",
+                products: "手足霜",
+                risks: "未精制的粗制橄榄油易致敏，需选用冷榨精制级原料，油皮过量使用易闷痘，合规添加量0.5%-10%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "蓖麻油",
+                englishName: "Castor Oil",
+                scientificName: "",
+                benefits: "滋养修护，改善倒刺、干裂，让手脚看起来更健康",
+                products: "手足霜",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.5%-10%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "马油/鸸鹋油",
+                englishName: "Horse Oil/Emu Oil",
+                scientificName: "",
+                benefits: "渗透修护干裂，改善手脚粗糙硬皮外观，让肌肤看起来更柔软",
+                products: "手足霜、皲裂膏",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量1%-20%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "可可脂",
+                englishName: "Cocoa Butter",
+                scientificName: "",
+                benefits: "封闭保湿，柔润皮肤，改善手脚粗糙外观，减少水分流失",
+                products: "手足霜",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量1%-15%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "果酸",
+                englishName: "Fruit Acid/AHA",
+                scientificName: "乳酸/甘醇酸",
+                benefits: "软化硬皮角质，提亮嫩肤，让手脚看起来更平滑柔软",
+                products: "手足霜",
+                risks: "浓度＞10%易引发刺痛、泛红，有光敏性，需搭配防晒，孕妇、敏肌慎用，化妆品合规上限10%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "水杨酸",
+                englishName: "Salicylic Acid",
+                scientificName: "",
+                benefits: "软化角质，改善手脚粗糙硬皮，让肌肤看起来更平滑",
+                products: "手足霜",
+                risks: "浓度＞2%易引发刺痛、泛红、脱皮，孕妇、备孕期慎用，有轻微光敏性，需搭配防晒，化妆品合规上限2%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "薄荷醇",
+                englishName: "Menthol",
+                scientificName: "",
+                benefits: "清凉舒缓，让手脚使用后感觉舒适",
+                products: "夏季手足霜",
+                risks: "高浓度易引发刺激，孕妇、敏肌慎用，合规添加量0.1%-1%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "樟脑",
+                englishName: "Camphor",
+                scientificName: "",
+                benefits: "舒缓止痒，让手脚使用后感觉舒适",
+                products: "手足霜",
+                risks: "高浓度易引发刺激，孕妇、敏肌慎用，合规添加量0.1%-2%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "茶树精油",
+                englishName: "Tea Tree Oil",
+                scientificName: "",
+                benefits: "抑菌止痒，适配脚气、异味款手足霜",
+                products: "手足霜",
+                risks: "高浓度易引发刺激，孕妇、敏肌慎用，合规添加量0.1%-2%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "金盏花提取物",
+                englishName: "Calendula",
+                scientificName: "",
+                benefits: "舒缓抗炎，让手脚使用后感觉舒适",
+                products: "手足霜",
+                risks: "对菊科植物过敏者禁用，极个别敏肌可能出现致敏，合规添加量0.1%-5%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "芦荟提取物",
+                englishName: "Aloe",
+                scientificName: "",
+                benefits: "保湿舒缓，让手脚看起来更水润舒适",
+                products: "手足霜",
+                risks: "芦荟素未脱除干净易引发致敏，需选用脱苦脱醛原料，敏肌需先做皮肤测试，合规添加量0.5%-10%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "牛油果油",
+                englishName: "Avocado Oil",
+                scientificName: "",
+                benefits: "滋养修护，改善粗糙，让手脚看起来更柔软平滑",
+                products: "手足霜",
+                risks: "无明确急性危害，油皮过量使用易轻微闷痘，合规添加量0.5%-10%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "甜杏仁油",
+                englishName: "Sweet Almond Oil",
+                scientificName: "",
+                benefits: "温和保湿，柔润皮肤，让手脚看起来更柔软平滑",
+                products: "手足霜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.5%-10%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "向日葵籽油",
+                englishName: "Sunflower Seed Oil",
+                scientificName: "",
+                benefits: "保湿抗氧化，让手脚看起来更健康有光泽",
+                products: "手足霜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.5%-10%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "葡萄籽油",
+                englishName: "Grape Seed Oil",
+                scientificName: "",
+                benefits: "清爽保湿，适配轻薄款手足霜",
+                products: "手足霜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.5%-10%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "尿囊素",
+                englishName: "Allantoin",
+                scientificName: "",
+                benefits: "促进裂口愈合，舒缓保湿，改善干裂外观，让手脚看起来更平滑",
+                products: "皲裂膏、手足霜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-2%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "神经酰胺",
+                englishName: "Ceramide",
+                scientificName: "",
+                benefits: "修护手足皮肤屏障，锁水防干裂，让肌肤看起来更稳定强韧",
+                products: "手足霜",
+                risks: "无明确急性危害，原料纯度不足、溶剂残留易引发接触性皮炎，过量添加易搓泥，合规添加量0.01%-1%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "角鲨烷",
+                englishName: "Squalane",
+                scientificName: "",
+                benefits: "修护皮脂膜，保湿柔润，让手脚看起来更柔软平滑",
+                products: "手足霜",
+                risks: "油皮、痘肌高浓度使用易加重毛孔堵塞、闷痘风险，合规添加量0.5%-5%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "透明质酸",
+                englishName: "Hyaluronic Acid",
+                scientificName: "透明质酸钠",
+                benefits: "深层补水，改善干燥粗糙，让手脚看起来更水润饱满",
+                products: "手足霜",
+                risks: "浓度＞2%时易出现搓泥、黏腻感；极端敏感肌高浓度下可能出现轻微泛红，全球合规添加量0.05%-2%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "胶原蛋白",
+                englishName: "Collagen",
+                scientificName: "",
+                benefits: "滋养皮肤，改善粗糙，让手脚看起来更柔软平滑",
+                products: "手足霜",
+                risks: "无明确急性刺激性，原料纯度不足易引发轻微致敏，全肤质适配，合规添加量0.1%-5%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "薄荷提取物",
+                englishName: "Peppermint",
+                scientificName: "",
+                benefits: "清凉舒缓，适配夏季手足霜",
+                products: "手足霜",
+                risks: "高浓度易引发刺激，孕妇、敏肌慎用，合规添加量0.1%-5%"
+            },
+
+            // 网红爆款抗氧化类
+            {
+                category: "网红爆款抗氧化类",
+                name: "虾青素",
+                englishName: "Astaxanthin",
+                scientificName: "雨生红球藻提取物",
+                benefits: "超强抗氧化，抗衰提亮，让肌肤看起来更年轻有光泽",
+                products: "精华、面霜",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.01%-0.5%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "麦角硫因",
+                englishName: "Ergothioneine",
+                scientificName: "",
+                benefits: "强效抗氧化，抗光老化，让肌肤看起来更年轻健康",
+                products: "精华、面霜、眼霜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.001%-0.5%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "白藜芦醇",
+                englishName: "Resveratrol",
+                scientificName: "",
+                benefits: "抗氧化抗糖，抗衰淡纹，让肌肤看起来更年轻平滑",
+                products: "精华、面霜",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.1%-2%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "超氧化物歧化酶",
+                englishName: "SOD",
+                scientificName: "SOD",
+                benefits: "抗氧化，清除自由基，让肌肤看起来更健康年轻",
+                products: "全品类",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.01%-0.5%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "碧萝芷",
+                englishName: "Pycnogenol",
+                scientificName: "松树皮提取物",
+                benefits: "强效抗氧化，让肌肤看起来更年轻有光泽",
+                products: "高端抗老产品",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.1%-2%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "番茄红素",
+                englishName: "Lycopene",
+                scientificName: "",
+                benefits: "抗氧化抗光老化，让肌肤看起来更健康年轻",
+                products: "面霜、精华",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-1%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "叶黄素",
+                englishName: "Lutein",
+                scientificName: "",
+                benefits: "抗氧化，保护眼周，让眼周看起来更健康",
+                products: "眼霜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-1%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "花青素",
+                englishName: "Anthocyanin",
+                scientificName: "蓝莓/葡萄籽提取物",
+                benefits: "强效抗氧化，让肌肤看起来更年轻有光泽",
+                products: "全品类",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-3%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "迷迭香酸",
+                englishName: "Rosmarinic Acid",
+                scientificName: "",
+                benefits: "抗氧化抗炎，让肌肤看起来更健康稳定",
+                products: "全品类",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-2%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "绿茶提取物",
+                englishName: "Green Tea",
+                scientificName: "茶多酚",
+                benefits: "抗氧化抗老，让肌肤看起来更年轻有光泽",
+                products: "全品类",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.1%-5%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "红茶提取物",
+                englishName: "Black Tea",
+                scientificName: "茶黄素",
+                benefits: "抗氧化提亮，让肌肤看起来更明亮有光泽",
+                products: "全品类",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-3%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "葡萄籽提取物",
+                englishName: "Grape Seed",
+                scientificName: "原花青素",
+                benefits: "强效抗氧化，抗衰淡纹，让肌肤看起来更年轻平滑",
+                products: "全品类",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-3%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "松树皮提取物",
+                englishName: "Pine Bark",
+                scientificName: "碧萝芷",
+                benefits: "强效抗氧化，让肌肤看起来更年轻有光泽",
+                products: "高端产品",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.1%-2%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "雨生红球藻提取物",
+                englishName: "Haematococcus Pluvialis",
+                scientificName: "虾青素",
+                benefits: "超强抗氧化，让肌肤看起来更年轻有光泽",
+                products: "精华、面霜",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.01%-0.5%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "富勒烯",
+                englishName: "Fullerene",
+                scientificName: "",
+                benefits: "强效抗氧化，清除自由基，抗老淡纹，让肌肤看起来更年轻平滑",
+                products: "精华、面霜",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-1%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "艾地苯",
+                englishName: "Idebenone",
+                scientificName: "",
+                benefits: "强效抗氧化抗老，让肌肤看起来更年轻有光泽",
+                products: "精华、面霜",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.1%-1%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "硫辛酸",
+                englishName: "Lipoic Acid",
+                scientificName: "",
+                benefits: "双向抗氧化，抗糖抗老，让肌肤看起来更年轻平滑",
+                products: "精华、面霜",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.1%-1%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "辅酶Q10",
+                englishName: "Coenzyme Q10",
+                scientificName: "泛醌/泛醇",
+                benefits: "抗氧化抗老，让肌肤看起来更年轻有光泽",
+                products: "全品类",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.1%-2%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "肌肽",
+                englishName: "Carnosine",
+                scientificName: "",
+                benefits: "抗糖抗氧化，让肌肤看起来更年轻平滑",
+                products: "全品类抗老产品",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-3%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "灵芝多糖",
+                englishName: "Ganoderma Lucidum",
+                scientificName: "",
+                benefits: "抗氧化抗老，让肌肤看起来更年轻健康",
+                products: "高端产品",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.1%-3%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "甘草酸二钾",
+                englishName: "Dipotassium Glycyrrhizate",
+                scientificName: "甘草提取物",
+                benefits: "舒缓肌肤不适，改善泛红外观，降低产品刺激性，维持肌肤稳定状态",
+                products: "全品类护肤品，面霜、精华、爽肤水、面膜、牙膏",
+                risks: "无明确急性危害，过量添加易出现搓泥感，合规添加量0.05%-2%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "依克多因",
+                englishName: "Ectoin",
+                scientificName: "",
+                benefits: "舒缓外界刺激带来的肌肤不适，改善泛红紧绷外观，晒后呵护，强韧肌肤屏障观感",
+                products: "敏感肌全品类产品，面霜、精华、面膜、防晒产品",
+                risks: "无明确急性危害，无致敏性，全肤质包括敏肌、孕妇可用，合规添加量0.1%-2%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "神经酰胺",
+                scientificName: "",
+                benefits: "补充肌肤表层脂质，改善肌肤屏障受损的干燥脱屑外观，锁水呵护，降低外界刺激影响",
+                products: "敏感肌产品，面霜、精华、身体乳、手霜、眼霜",
+                risks: "无明确急性危害，原料纯度不足、溶剂残留易引发接触性皮炎，过量添加易搓泥，合规添加量0.01%-1%"
+            },
+            {
+                category: "舒缓修护敏感肌类",
+                name: "角鲨烷",
+                scientificName: "",
+                benefits: "与肌肤皮脂结构相融，修护皮脂膜观感，舒缓保湿，改善肌肤干燥粗糙外观",
+                products: "全品类护肤品，面霜、手足霜、精华、眼霜、唇部产品",
+                risks: "油皮、痘肌高浓度使用易加重毛孔堵塞、闷痘风险，合规添加量0.5%-5%"
+            },
+            
+            // 眼部护理专属类
+            {
+                category: "眼部护理专属类",
+                name: "咖啡因",
+                englishName: "Caffeine",
+                scientificName: "",
+                benefits: "改善眼周浮肿、黑眼圈、眼袋外观，让眼周肌肤看起来更紧致平滑，是TEMU眼霜最高频核心成分",
+                products: "全品类眼霜、眼精华、眼膜",
+                risks: "高浓度添加易引发眼周肌肤紧绷、刺痛，敏肌需控制用量，合规添加量0.1%-5%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "维生素A醇",
+                englishName: "Retinol",
+                scientificName: "视黄醇",
+                benefits: "调理眼周肌肤，改善眼周干纹细纹、松弛外观，让眼周肌肤看起来更平滑紧致",
+                products: "抗老眼霜、眼精华",
+                risks: "高浓度易引发眼周泛红、脱皮、刺痛，光敏性强，孕妇、备孕期慎用；需逐步建立耐受，合规添加量0.05%-0.3%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "温和A醇",
+                englishName: "Retinol Palmitate",
+                scientificName: "视黄醇棕榈酸酯/HPR",
+                benefits: "柔润调理眼周肌肤，改善眼周干纹外观，让眼周肌肤看起来更平滑紧致，新手友好，刺激性更低",
+                products: "全品类眼霜、眼精华",
+                risks: "刺激性远低于视黄醇，仍有轻微光敏性，孕妇、备孕期慎用，合规添加量0.5%-3%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "六胜肽",
+                scientificName: "乙酰基六肽-8",
+                benefits: "调理眼周肌肤，改善眼周动态纹、鱼尾纹、表情纹外观，让眼周肌肤看起来更平滑细腻",
+                products: "眼霜、眼精华、眼膜",
+                risks: "无明确急性刺激性，原料纯度不足易引发轻微致敏，全肤质适配，合规添加量0.005%-0.5%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "类蛇毒肽",
+                englishName: "Dipeptide Diaminobutyroyl Benzylamide Diacetate",
+                scientificName: "",
+                benefits: "调理眼周肌肤，改善眼周表情纹、鱼尾纹外观，让眼周肌肤看起来更平滑紧致",
+                products: "眼霜、眼精华",
+                risks: "无明确急性刺激性，极低致敏风险，合规添加量0.005%-0.2%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "乙酰基四肽-5",
+                englishName: "Acetyl Tetrapeptide-5",
+                scientificName: "眼丽士肽",
+                benefits: "改善眼周浮肿、黑眼圈外观，让眼周肌肤看起来更平滑紧致",
+                products: "眼霜、眼精华、眼膜",
+                risks: "无明确急性刺激性，极低致敏风险，全肤质适配，合规添加量0.005%-0.5%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "二肽-2",
+                englishName: "Dipeptide-2",
+                scientificName: "",
+                benefits: "改善眼周浮肿、眼袋外观，让眼周肌肤看起来更紧致平滑",
+                products: "眼霜、眼精华",
+                risks: "无明确急性刺激性，极低致敏风险，合规添加量0.005%-0.2%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "七叶树提取物",
+                scientificName: "七叶皂苷",
+                benefits: "改善眼周浮肿、黑眼圈外观，舒缓眼周肌肤不适，让眼周肌肤看起来更平滑紧致",
+                products: "眼霜、眼精华、眼膜",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.1%-3%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "假叶树提取物",
+                englishName: "Butcher's Broom",
+                scientificName: "",
+                benefits: "改善眼周浮肿外观，舒缓眼周肌肤不适，让眼周肌肤看起来更平滑紧致",
+                products: "眼霜、眼精华",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量0.1%-3%"
+            },
+            {
+                category: "眼部护理专属类",
+                name: "橙皮苷甲基查尔酮",
+                englishName: "Hesperidin Methyl Chalcone",
+                scientificName: "",
+                benefits: "改善眼周血管型黑眼圈外观，让眼周肌肤看起来更匀净平滑",
+                products: "眼霜、眼精华",
+                risks: "无明确急性危害，极低致敏风险，合规添加量0.1%-2%"
+            },
+            
+            // 手足护理专属类
+            {
+                category: "手足护理专属类",
+                name: "凡士林",
+                englishName: "Petroleum Jelly",
+                scientificName: "矿脂",
+                benefits: "超强封闭锁水，修护手足干裂起皮外观，减少肌肤水分流失，是TEMU手足霜、皲裂膏最高频核心成分",
+                products: "手足霜、皲裂膏、身体乳、润足霜",
+                risks: "无明确急性危害，油皮高浓度使用易出现闷肤感，合规添加量5%-40%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "尿素",
+                englishName: "Urea",
+                scientificName: "",
+                benefits: "深层保湿，软化手足肌肤表面老废角质，改善手脚干裂、硬皮、粗糙外观，是手足护理核心功效成分",
+                products: "手足霜、皲裂膏、足膜、手膜",
+                risks: "浓度＞20%易引发肌肤刺痛、泛红，敏肌需控制用量，化妆品合规添加量2%-20%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "乳木果油",
+                englishName: "Shea Butter",
+                scientificName: "",
+                benefits: "深层滋养保湿，改善手足肌肤干燥粗糙、起皮外观，柔润肌肤，让手足肌肤看起来更顺滑有光泽",
+                products: "手足霜、皲裂膏、身体乳、手膜",
+                risks: "未精制的粗制乳木果油易致敏，需选用精制级原料，合规添加量1%-25%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "羊毛脂",
+                englishName: "Lanolin",
+                scientificName: "",
+                benefits: "高保湿锁水，改善手足干裂、起皮外观，减少水分流失，柔润肌肤",
+                products: "手足霜、皲裂膏、润足霜、手膜",
+                risks: "未精制的粗制羊毛脂易致敏，需选用精制级原料，合规添加量1%-20%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "甘油",
+                scientificName: "丙三醇",
+                benefits: "基础补水保湿，抓取环境水分滋润手足肌肤，改善干燥脱屑外观，是全手足产品必备核心成分",
+                products: "全品类手足护理产品，手足霜、皲裂膏、手膜、足膜",
+                risks: "浓度＞40%时会反向吸收肌肤自身水分，导致紧绷拔干；工业级甘油纯度不足易引发致敏，合规添加量5%-25%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "维生素E",
+                englishName: "Vitamin E",
+                scientificName: "生育酚",
+                benefits: "保湿滋润，改善手足肌肤干燥粗糙、干裂外观，辅助稳定配方，让手足肌肤看起来更顺滑有光泽",
+                products: "全品类手足护理产品，手足霜、皲裂膏、手膜",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，过量添加易出现黏腻感，合规添加量0.1%-5%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "维生素B5",
+                englishName: "Vitamin B5",
+                scientificName: "泛醇",
+                benefits: "保湿滋润，舒缓手足肌肤不适，改善干燥起皮、倒刺外观，呵护受损肌肤外观",
+                products: "手足霜、手膜、足膜、皲裂膏",
+                risks: "极个别高敏感人群可能出现接触性皮炎，无普遍性危害，合规添加量0.2%-5%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "蜂蜡",
+                englishName: "Beeswax",
+                scientificName: "",
+                benefits: "封闭锁水，改善手足干裂、起皮外观，减少水分流失，柔润肌肤",
+                products: "手足霜、皲裂膏、润足霜、唇膏",
+                risks: "无明确急性危害，极个别敏肌可能出现致敏，合规添加量1%-15%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "椰子油",
+                englishName: "Coconut Oil",
+                scientificName: "",
+                benefits: "封闭保湿，改善手足肌肤干燥粗糙外观，柔润肌肤，减少水分流失",
+                products: "手足霜、身体乳、手膜、足膜",
+                risks: "无明确急性危害，过量使用易出现油腻感，合规添加量1%-20%"
+            },
+            {
+                category: "手足护理专属类",
+                name: "橄榄油",
+                englishName: "Olive Oil",
+                scientificName: "",
+                benefits: "滋养修护，改善手足肌肤干燥粗糙、干裂外观，补充肌肤脂质，柔润肌肤",
+                products: "手足霜、皲裂膏、身体乳、手膜",
+                risks: "未精制的粗制橄榄油易致敏，需选用冷榨精制级原料，合规添加量1%-15%"
+            },
+            
+            // 网红爆款抗氧化类
+            {
+                category: "网红爆款抗氧化类",
+                name: "虾青素",
+                englishName: "Astaxanthin",
+                scientificName: "雨生红球藻提取物",
+                benefits: "改善肌肤暗沉、光老化外观，让肌肤看起来更透亮有光泽，是TEMU引流爆款核心成分",
+                products: "精华、面霜、眼霜、面膜、身体乳",
+                risks: "无明确急性危害，原料纯度不足易引发轻微致敏、染色，合规添加量0.01%-0.5%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "麦角硫因",
+                englishName: "Ergothioneine",
+                scientificName: "",
+                benefits: "改善肌肤暗沉、光老化外观，提亮肌肤光泽，让肌肤看起来更透亮健康",
+                products: "精华、面霜、眼霜、身体乳",
+                risks: "无明确急性危害，极低致敏风险，全肤质适配，合规添加量0.01%-2%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "白藜芦醇",
+                englishName: "Resveratrol",
+                scientificName: "",
+                benefits: "改善肌肤暗沉、干纹外观，让肌肤看起来更平滑有光泽",
+                products: "抗老精华、面霜、眼霜、面膜",
+                risks: "无明确急性危害，高浓度添加易引发肌肤刺激，敏肌需控制用量，合规添加量0.1%-1%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "超氧化物歧化酶",
+                englishName: "SOD",
+                scientificName: "SOD",
+                benefits: "改善肌肤暗沉、粗糙外观，让肌肤看起来更健康有光泽",
+                products: "全品类护肤品，面霜、精华、爽肤水、面膜",
+                risks: "无明确急性危害，原料失活易引发致敏，需低温保存，合规添加量0.01%-1%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "碧萝芷",
+                englishName: "Pycnogenol",
+                scientificName: "松树皮提取物",
+                benefits: "改善肌肤暗沉、光老化外观，让肌肤看起来更健康有光泽，适配高端抗老产品",
+                products: "高端精华、面霜、面膜",
+                risks: "无明确急性危害，极个别敏肌可能出现轻微致敏，合规添加量0.1%-2%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "番茄红素",
+                englishName: "Lycopene",
+                scientificName: "",
+                benefits: "改善肌肤暗沉、光老化外观，让肌肤看起来更健康有光泽",
+                products: "面霜、精华、身体乳",
+                risks: "无明确急性危害，极低致敏风险，合规添加量0.01%-1%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "叶黄素",
+                englishName: "Lutein",
+                scientificName: "",
+                benefits: "改善肌肤暗沉、光老化外观，呵护眼周娇嫩肌肤，让肌肤看起来更健康有光泽",
+                products: "眼霜、面霜、精华",
+                risks: "无明确急性危害，极低致敏风险，合规添加量0.01%-1%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "花青素",
+                englishName: "Anthocyanin",
+                scientificName: "蓝莓/葡萄籽提取物",
+                benefits: "改善肌肤暗沉、粗糙外观，让肌肤看起来更健康有光泽",
+                products: "全品类护肤品，面霜、精华、爽肤水、面膜",
+                risks: "无明确急性危害，极个别敏肌可能出现轻微致敏，合规添加量0.1%-5%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "迷迭香酸",
+                englishName: "Rosmarinic Acid",
+                scientificName: "",
+                benefits: "改善肌肤暗沉、泛红外观，维持肌肤稳定状态，让肌肤看起来更健康",
+                products: "全品类护肤品，面霜、精华、爽肤水、面膜",
+                risks: "无明确急性危害，极个别敏肌可能出现轻微致敏，合规添加量0.1%-2%"
+            },
+            {
+                category: "网红爆款抗氧化类",
+                name: "绿茶提取物",
+                englishName: "Green Tea",
+                scientificName: "茶多酚",
+                benefits: "改善肌肤暗沉、粗糙外观，让肌肤看起来更健康有光泽",
+                products: "全品类护肤品，面霜、精华、爽肤水、面膜",
+                risks: "无明确急性危害，极个别敏肌可能出现轻微致敏，合规添加量0.1%-5%"
+            }
+        ];
+
+        // 执行合并
+        const mergedIngredientsData = mergeIngredientsData(ingredientsData);
+
+        // 分类颜色映射
+        const categoryColors = {
+            "基础保湿锁水类": "bg-gradient-to-r from-blue-500 to-blue-600",
+            "紧致抗老提拉类": "bg-gradient-to-r from-purple-500 to-purple-600",
+            "提亮美白焕肤类": "bg-gradient-to-r from-pink-500 to-pink-600",
+            "舒缓修护敏感肌类": "bg-gradient-to-r from-green-500 to-green-600",
+            "网红爆款抗氧化类": "bg-gradient-to-r from-indigo-500 to-indigo-600"
+        };
+
+        // DOM元素
+        const ingredientsContainer = document.getElementById('ingredients-container');
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+
+        // 当前筛选状态
+        let currentCategory = 'all';
+        let currentSearchTerm = '';
+
+        // 渲染成分卡片（多列独立布局）
+        function renderIngredients(ingredients) {
+            ingredientsContainer.innerHTML = '';
+            ingredientsContainer.className = 'flex flex-col sm:flex-row gap-6 items-start';
+            
+            const quickNav = document.getElementById('quick-nav');
+            if (quickNav) quickNav.innerHTML = '';
+
+            if (ingredients.length === 0) {
+                ingredientsContainer.innerHTML = `
+                    <div class="text-center py-12 w-full">
+                        <i class="fa fa-search text-4xl text-gray-400 mb-4"></i>
+                        <p class="text-lg text-gray-500">未找到匹配的成分，请尝试其他搜索词或分类</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // 根据屏幕宽度确定列数（移动端1列，平板2列，桌面3列）
+            const columnCount = window.innerWidth < 640 ? 1 : (window.innerWidth < 1024 ? 2 : 3);
+
+            // 创建列容器数组
+            const columns = [];
+            for (let i = 0; i < columnCount; i++) {
+                const col = document.createElement('div');
+                col.className = 'flex-1 flex flex-col gap-6'; // 每列内部使用 flex 列布局，卡片垂直排列
+                columns.push(col);
+                ingredientsContainer.appendChild(col);
+            }
+
+            // 将卡片按顺序分配到各列（循环分配）
+            ingredients.forEach((ingredient, index) => {
+                const colIndex = index % columnCount; // 0,1,2 循环
+                const card = createCard(ingredient);  // 调用卡片生成函数
+                columns[colIndex].appendChild(card);
+            });
+        }
+
+        // 添加返回顶部胶囊
+        function appendBackToTopCapsule() {
+            const quickNav = document.getElementById('quick-nav');
+            if (!quickNav) return; // 防止容器不存在时报错
+            const backCapsule = document.createElement('button');
+            backCapsule.className = 'capsule-btn top';
+            backCapsule.innerHTML = '<i class="fa fa-arrow-up mr-1"></i>顶部';
+            backCapsule.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            quickNav.appendChild(backCapsule);
+        }
+
+        // 按子类分组渲染（用于大类页面）
+        function renderCategoryPage(ingredients, categoryName) {
+            ingredientsContainer.innerHTML = '';
+            ingredientsContainer.className = 'flex flex-col gap-6';
+            
+            const quickNav = document.getElementById('quick-nav');
+            if (quickNav) quickNav.innerHTML = '';
+
+            if (ingredients.length === 0) {
+                ingredientsContainer.innerHTML = `
+                    <div class="text-center py-12 w-full">
+                        <i class="fa fa-search text-4xl text-gray-400 mb-4"></i>
+                        <p class="text-lg text-gray-500">未找到匹配的成分，请尝试其他搜索词或分类</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // 收集所有子类
+            const allSubs = new Set();
+            ingredients.forEach(ing => {
+                ing.subcategories.forEach(sub => allSubs.add(sub));
+            });
+
+            // 自定义排序优先级
+            const prioritySubs = ['面霜', '颈霜', '眼霜', '精华', '手霜', '足霜'];
+            const subsArray = Array.from(allSubs);
+            const sortedSubs = subsArray.sort((a, b) => {
+                const aIndex = prioritySubs.indexOf(a);
+                const bIndex = prioritySubs.indexOf(b);
+                if (aIndex !== -1 && bIndex !== -1) {
+                    return aIndex - bIndex;
+                }
+                if (aIndex !== -1) return -1;
+                if (bIndex !== -1) return 1;
+                return a.localeCompare(b);
+            });
+
+            // 为每个子类创建一个区块
+            sortedSubs.forEach(sub => {
+                const subIngredients = ingredients.filter(ing => ing.subcategories.includes(sub));
+                if (subIngredients.length === 0) return;
+
+                // 子类标题
+                const section = document.createElement('div');
+                section.id = `sub-${sub.replace(/\s+/g, '-')}`;
+                section.className = 'mb-10';
+                section.innerHTML = `<h3 class="text-xl font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-200">${sub}</h3>`;
+                
+                // 生成胶囊按钮
+                const capsule = document.createElement('button');
+                capsule.className = 'capsule-btn';
+                capsule.textContent = sub;
+                capsule.setAttribute('data-target', `sub-${sub.replace(/\s+/g, '-')}`);
+                capsule.addEventListener('click', () => {
+                    const target = document.getElementById(`sub-${sub.replace(/\s+/g, '-')}`);
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+                if (quickNav) quickNav.appendChild(capsule);
+
+                // 根据屏幕宽度确定列数（与 renderIngredients 一致）
+                const columnCount = window.innerWidth < 640 ? 1 : (window.innerWidth < 1024 ? 2 : 3);
+
+                // 创建列容器数组
+                const columns = [];
+                for (let i = 0; i < columnCount; i++) {
+                    const col = document.createElement('div');
+                    col.className = 'flex-1 flex flex-col gap-6';
+                    columns.push(col);
+                }
+
+                // 将卡片按顺序分配到各列
+                subIngredients.forEach((ing, index) => {
+                    const colIndex = index % columnCount;
+                    const card = createCard(ing);
+                    columns[colIndex].appendChild(card);
+                });
+
+                // 将列容器放入一个 flex 行容器中，再添加到 section
+                const rowContainer = document.createElement('div');
+                rowContainer.className = 'flex flex-col sm:flex-row gap-6 items-start';
+                columns.forEach(col => rowContainer.appendChild(col));
+
+                section.appendChild(rowContainer);
+                ingredientsContainer.appendChild(section);
+            });
+            
+            // 添加返回顶部胶囊
+            if (quickNav) {
+                appendBackToTopCapsule();
+            }
+        }
+
+        // 抽取卡片创建逻辑，保持代码清晰
+        function createCard(ingredient) {
+            const categoryColor = categoryColors[ingredient.category] || 'bg-gradient-to-r from-gray-500 to-gray-600';
+            
+            const card = document.createElement('div');
+            card.className = 'bg-white rounded-xl shadow-soft transition-all-300 hover:shadow-hover w-full';
+            card.setAttribute('data-category', ingredient.category);
+            card.setAttribute('data-name', ingredient.name.toLowerCase());
+            
+            card.innerHTML = `
+                <div class="p-6">
+                    <!-- 主类目标签 -->
+                    <div class="text-center py-2 mb-2 border-b border-gray-100">
+                        <span class="${categoryColor} text-white text-xs px-3 py-1 rounded-full">${ingredient.category}</span>
+                    </div>
+                    
+                    <!-- 子类标签区域（新） -->
+                    ${ingredient.subcategories && ingredient.subcategories.length > 0 ? `
+                    <div class="flex flex-wrap gap-1 justify-center mb-3">
+                        ${ingredient.subcategories.map(sub => `<span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">${sub}</span>`).join('')}
+                    </div>
+                    ` : ''}
+                    
+                    <!-- 名称区域 -->
+                    <div class="text-center mb-4">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">${ingredient.name}</h3>
+                        ${ingredient.englishName ? `<p class="text-gray-600">${ingredient.englishName}</p>` : ''}
+                        ${ingredient.scientificName ? `<p class="text-gray-600">${ingredient.scientificName}</p>` : ''}
+                    </div>
+                    
+                    <!-- 详情区域 -->
+                    <div class="ingredient-details overflow-hidden transition-all duration-300 max-h-0 opacity-0">
+                        <div class="space-y-4 pt-4 border-t border-gray-100">
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-700 mb-1">核心合规功效</h4>
+                                <p class="text-gray-600">${ingredient.benefits}</p>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-700 mb-1">TEMU适配产品品类</h4>
+                                <p class="text-gray-600">${ingredient.products}</p>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-700 mb-1">风险与合规提示</h4>
+                                <p class="text-gray-600">${ingredient.risks}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 展开/收起按钮 -->
+                    <button class="toggle-details mt-4 text-primary hover:text-primary/80 flex items-center justify-center transition-all-300 relative z-20 w-full">
+                        <span class="toggle-text">详情</span>
+                        <i class="fa fa-chevron-down ml-1 toggle-icon transition-transform duration-300"></i>
+                    </button>
+                </div>
+            `;
+
+            // 添加展开/收起功能
+            const toggleButton = card.querySelector('.toggle-details');
+            const details = card.querySelector('.ingredient-details');
+            const toggleText = card.querySelector('.toggle-text');
+            const toggleIcon = card.querySelector('.toggle-icon');
+
+            toggleButton.addEventListener('click', () => {
+                if (details.style.maxHeight === '0px' || details.style.maxHeight === '') {
+                    details.style.maxHeight = '1000px';
+                    details.style.opacity = '1';
+                    toggleIcon.style.transform = 'rotate(180deg)';
+                } else {
+                    details.style.maxHeight = '0px';
+                    details.style.opacity = '0';
+                    toggleIcon.style.transform = 'rotate(0deg)';
+                }
+            });
+
+            return card;
+        }
+
+        // 渲染违规词对照页面（改进版，左右对齐）
+        function renderProhibitedWords(data) {
+            ingredientsContainer.innerHTML = ''; // 清空容器
+            ingredientsContainer.className = 'flex flex-col gap-6';
+            
+            const quickNav = document.getElementById('quick-nav');
+            if (quickNav) quickNav.innerHTML = '';
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'w-full bg-white rounded-xl shadow-soft p-6';
+            wrapper.innerHTML = `
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">违规词参考 - 中英文对照</h2>
+            `;
+            ingredientsContainer.appendChild(wrapper);
+
+            data.forEach(category => {
+                // 每个分类的容器
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'mb-8';
+                
+                // 分类标题
+                const title = document.createElement('h3');
+                title.className = 'text-lg font-semibold text-primary mb-3 pb-1 border-b border-gray-200';
+                title.textContent = category.category;
+                categoryDiv.appendChild(title);
+
+                // 创建网格容器，两列，列宽自动分配，间隙
+                const grid = document.createElement('div');
+                grid.className = 'grid grid-cols-1 lg:grid-cols-2 gap-4';
+
+                category.items.forEach(item => {
+                    // 英文单元格
+                    const enDiv = document.createElement('div');
+                    enDiv.className = 'text-gray-700';
+                    enDiv.textContent = item.en;
+
+                    // 中文单元格
+                    const zhDiv = document.createElement('div');
+                    zhDiv.className = 'text-gray-700';
+                    zhDiv.textContent = item.zh;
+
+                    // 将两个单元格作为直接子项放入网格，grid 会自动按顺序填充两列
+                    grid.appendChild(enDiv);
+                    grid.appendChild(zhDiv);
+                });
+
+                categoryDiv.appendChild(grid);
+                wrapper.appendChild(categoryDiv);
+            });
+        }
+
+        // 过滤违规词数据
+        function filterProhibitedWords(data, searchTerm) {
+            if (!searchTerm) return data; // 无搜索词时返回原数据
+
+            const lowerTerm = searchTerm.toLowerCase();
+            const filtered = [];
+
+            data.forEach(category => {
+                const filteredItems = category.items.filter(item => 
+                    item.en.toLowerCase().includes(lowerTerm) || 
+                    item.zh.includes(lowerTerm) // 中文直接包含即可
+                );
+                if (filteredItems.length > 0) {
+                    filtered.push({
+                        category: category.category,
+                        items: filteredItems
+                    });
+                }
+            });
+
+            return filtered;
+        }
+
+        // 筛选成分
+        function filterIngredients() {
+            // 违规词参考分类保持不变
+            if (currentCategory === '违规词参考') {
+                let filteredData = prohibitedWordsDetailed;
+                if (currentSearchTerm) {
+                    filteredData = filterProhibitedWords(prohibitedWordsDetailed, currentSearchTerm);
+                }
+                renderProhibitedWords(filteredData);
+                return;
+            }
+            
+            // 使用合并后的数据
+            let filtered = mergedIngredientsData;
+            
+            // 如果不是“全部”，按大类筛选
+            if (currentCategory !== 'all') {
+                filtered = filtered.filter(ingredient => ingredient.category === currentCategory);
+            }
+            
+            // 按搜索词筛选（支持名称、英文名、学名）
+            if (currentSearchTerm) {
+                const searchLower = currentSearchTerm.toLowerCase();
+                filtered = filtered.filter(ingredient => 
+                    ingredient.name.toLowerCase().includes(searchLower) || 
+                    (ingredient.englishName && ingredient.englishName.toLowerCase().includes(searchLower)) || 
+                    (ingredient.scientificName && ingredient.scientificName.toLowerCase().includes(searchLower))
+                );
+            }
+            
+            // 根据当前分类决定渲染方式
+            if (currentCategory === 'all') {
+                // 全部成分页面：使用多列布局，卡片带子类标签
+                renderIngredients(filtered);
+            } else {
+                // 大类页面：按子类分组渲染
+                renderCategoryPage(filtered, currentCategory);
+            }
+        }
+
+        // 搜索功能
+        function handleSearch() {
+            currentSearchTerm = searchInput.value.trim();
+            filterIngredients();
+        }
+
+        // 分类筛选功能
+        function handleCategoryFilter(category) {
+            currentCategory = category;
+            
+            // 更新按钮样式
+            categoryButtons.forEach(btn => {
+                if (btn.dataset.category === category) {
+                    btn.classList.remove('bg-white', 'text-neutral-dark');
+                    btn.classList.add('bg-gradient-primary', 'text-white');
+                } else {
+                    btn.classList.remove('bg-gradient-primary', 'text-white');
+                    btn.classList.add('bg-white', 'text-neutral-dark');
+                }
+            });
+            
+            filterIngredients();
+        }
+
+        // ========== 搜索框展开/收起逻辑 ==========
+        const searchContainer = document.getElementById('search-container');
+
+        // 检查搜索框是否已展开
+        function isSearchExpanded() {
+            return searchInput.classList.contains('w-64') || searchInput.classList.contains('w-full');
+        }
+
+        // 展开搜索框
+        function expandSearch() {
+            searchInput.classList.remove('w-0', 'opacity-0');
+            searchInput.classList.add('opacity-100', 'px-4');
+            if (window.innerWidth < 768) {
+                searchInput.classList.add('w-full');
+                searchInput.classList.remove('w-64');
+            } else {
+                searchInput.classList.add('w-64');
+                searchInput.classList.remove('w-full');
+            }
+            searchButton.classList.add('hidden'); // 隐藏放大镜按钮
+            searchInput.focus();
+        }
+
+        // 收起搜索框（仅当内容为空时）
+        function collapseSearch() {
+            if (searchInput.value.trim() === '') {
+                searchInput.classList.remove('w-64', 'w-full', 'opacity-100', 'px-4');
+                searchInput.classList.add('w-0', 'opacity-0');
+                searchButton.classList.remove('hidden'); // 显示放大镜按钮
+            }
+        }
+
+        // 自定义搜索按钮点击事件
+        searchButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (!isSearchExpanded()) {
+                expandSearch();
+            } else {
+                // 已展开则执行搜索
+                handleSearch();
+            }
+        });
+
+        // 输入框失去焦点时尝试收起
+        searchInput.addEventListener('blur', function() {
+            collapseSearch();
+        });
+
+        // 实时搜索：输入内容变化立即筛选
+        searchInput.addEventListener('input', function() {
+            currentSearchTerm = searchInput.value.trim();
+            filterIngredients();
+        });
+
+        // 窗口大小变化时调整展开宽度
+        window.addEventListener('resize', function() {
+            if (isSearchExpanded()) {
+                if (window.innerWidth < 768) {
+                    searchInput.classList.remove('w-64');
+                    searchInput.classList.add('w-full');
+                } else {
+                    searchInput.classList.remove('w-full');
+                    searchInput.classList.add('w-64');
+                }
+            }
+        });
+        // ========== 结束 ==========
+
+        // 事件监听
+        // searchButton.addEventListener('click', handleSearch); // 注释掉原有事件，使用新的展开/收起逻辑
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+
+        categoryButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                handleCategoryFilter(btn.dataset.category);
+            });
+        });
+
+        // 窗口大小变化时重新渲染（防抖处理）
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                filterIngredients(); // 重新触发筛选，自动重新布局
+            }, 200);
+        });
+
+        // 返回顶部按钮功能
+        const backToTop = document.getElementById('back-to-top');
+
+        // 监听滚动事件，显示/隐藏按钮
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { // 滚动超过300px时显示
+                backToTop.classList.remove('opacity-0', 'invisible');
+                backToTop.classList.add('opacity-100', 'visible');
+            } else {
+                backToTop.classList.add('opacity-0', 'invisible');
+                backToTop.classList.remove('opacity-100', 'visible');
+            }
+        });
+
+        // 点击按钮平滑滚动到顶部
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 初始化页面
+        // 初始化页面
+        renderIngredients(mergedIngredientsData);
+    </script>
+
+</body></html>
