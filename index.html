@@ -79,9 +79,19 @@
             filter: saturate(1);      /* 悬停饱和度100% */
             opacity: 0.3;               /* 悬停不透明 */
         }
+
+        /* 导航按钮悬停效果 */
+        .category-btn:hover {
+            transform: translateY(-10px); /* 向上移动 8px，可根据需要调整 */
+            box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.25); /* 对应 Tailwind shadow-xl */
+            transition: all 0.3s ease;
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
+    <!-- 跟随鼠标的小圆点 -->
+    <div id="cursor-dot" class="fixed w-6 h-6 rounded-full bg-primary/20 pointer-events-none z-[100] transition-all duration-200 ease-out" style="transform: translate(-50%, -50%); left: 0; top: 0; opacity: 0;"></div>
+
     <!-- 顶部导航栏 -->
     <header class="bg-white/80 backdrop-blur-md shadow-soft sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between">
@@ -109,13 +119,13 @@
                     <h2 class="text-lg font-bold text-gray-800 mb-4">成分分类</h2>
                     <!-- 改为响应式网格布局：手机2列，平板3列，桌面1列 -->
                     <nav class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-2">
-                        <button class="category-btn active text-center bg-gradient-primary text-white px-3 py-2 lg:px-4 lg:py-3 rounded-lg shadow-soft hover:shadow-hover transition-all-300 text-sm lg:text-base" data-category="all">全部成分</button>
-                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg shadow-soft hover:shadow-hover transition-all-300 text-sm lg:text-base" data-category="基础保湿锁水类">基础保湿锁水</button>
-                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg shadow-soft hover:shadow-hover transition-all-300 text-sm lg:text-base" data-category="紧致抗老提拉类">紧致抗老提拉</button>
-                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg shadow-soft hover:shadow-hover transition-all-300 text-sm lg:text-base" data-category="提亮美白焕肤类">提亮美白焕肤</button>
-                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg shadow-soft hover:shadow-hover transition-all-300 text-sm lg:text-base" data-category="舒缓修护敏感肌类">舒缓修护敏感肌</button>
-                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg shadow-soft hover:shadow-hover transition-all-300 text-sm lg:text-base" data-category="网红爆款抗氧化类">网红爆款抗氧化</button>
-                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg shadow-soft hover:shadow-hover transition-all-300 text-sm lg:text-base" data-category="违规词参考">违规词参考</button>
+                        <button class="category-btn active text-center bg-gradient-primary text-white px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-white/20" data-category="all">全部成分</button>
+                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray-200" data-category="基础保湿锁水类">基础保湿锁水</button>
+                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray-200" data-category="紧致抗老提拉类">紧致抗老提拉</button>
+                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray-200" data-category="提亮美白焕肤类">提亮美白焕肤</button>
+                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray-200" data-category="舒缓修护敏感肌类">舒缓修护敏感肌</button>
+                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray-200" data-category="网红爆款抗氧化类">网红爆款抗氧化</button>
+                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray-200" data-category="违规词参考">违规词参考</button>
                     </nav>
                 </div>
             </aside>
@@ -2703,6 +2713,72 @@
                 behavior: 'smooth'
             });
         });
+
+        // 跟随鼠标的小圆点
+        const cursorDot = document.getElementById('cursor-dot');
+        let mouseX = 0, mouseY = 0;
+        let dotX = 0, dotY = 0;
+        let isMouseMoving = false;
+        let timeoutId;
+
+        // 监听鼠标移动
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // 显示圆点
+            if (cursorDot.style.opacity === '0') {
+                cursorDot.style.opacity = '1';
+            }
+            
+            // 标记鼠标正在移动，清除之前的定时器
+            isMouseMoving = true;
+            clearTimeout(timeoutId);
+            
+            // 设置定时器，当鼠标停止移动 100ms 后标记停止
+            timeoutId = setTimeout(() => {
+                isMouseMoving = false;
+            }, 100);
+        });
+
+        // 鼠标离开页面时隐藏圆点
+        document.addEventListener('mouseleave', () => {
+            cursorDot.style.opacity = '0';
+        });
+
+        // 鼠标进入页面时显示圆点（如果之前隐藏了）
+        document.addEventListener('mouseenter', () => {
+            if (mouseX !== 0 || mouseY !== 0) {
+                cursorDot.style.opacity = '1';
+            }
+        });
+
+        // 动画循环：让圆点平滑跟随
+        function animateDot() {
+            // 计算与目标位置的差值
+            const diffX = mouseX - dotX;
+            const diffY = mouseY - dotY;
+            
+            // 根据鼠标是否移动调整跟随速度
+            if (isMouseMoving) {
+                // 移动时：快速跟随（但保留一点延迟感）
+                dotX += diffX * 0.15;
+                dotY += diffY * 0.15;
+            } else {
+                // 停止时：缓慢回到指针位置
+                dotX += diffX * 0.1;
+                dotY += diffY * 0.1;
+            }
+            
+            // 应用位置
+            cursorDot.style.left = dotX + 'px';
+            cursorDot.style.top = dotY + 'px';
+            
+            requestAnimationFrame(animateDot);
+        }
+
+        // 启动动画循环
+        animateDot();
 
         // 初始化页面
         // 初始化页面
