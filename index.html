@@ -68,6 +68,17 @@
         .capsule-btn.top i {
             @apply mr-1;
         }
+
+        /* 卡片渐变层样式 */
+        .ingredient-card .gradient-layer {
+            transition: all 0.3s ease;
+            filter: saturate(0.3);   /* 默认饱和度30% */
+            opacity: 0.1;             /* 默认透明度50% */
+        }
+        .ingredient-card:hover .gradient-layer {
+            filter: saturate(1);      /* 悬停饱和度100% */
+            opacity: 0.3;               /* 悬停不透明 */
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
@@ -80,7 +91,7 @@
             </div>
             <div class="w-full md:w-1/3">
                 <div id="search-container" class="relative flex items-center justify-end">
-                    <input type="text" id="search-input" placeholder="搜索..." class="w-0 px-0 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300 opacity-0">
+                    <input type="text" id="search-input" placeholder="搜索..." class="w-0 px-0 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300 opacity-0">
                     <button id="search-button" class="text-gray-500 hover:text-primary p-2 focus:outline-none">
                         <i class="fa fa-search"></i>
                     </button>
@@ -2192,6 +2203,15 @@
             "网红爆款抗氧化类": "bg-gradient-to-r from-indigo-500 to-indigo-600"
         };
 
+        // 大类主色映射（用于渐变层）
+        const categoryMainColors = {
+            "基础保湿锁水类": "#297eff",   // blue-500
+            "紧致抗老提拉类": "#8b3eff",   // violet-500
+            "提亮美白焕肤类": "#EC4899",   // pink-500
+            "舒缓修护敏感肌类": "#10B981",  // emerald-500
+            "网红爆款抗氧化类": "#6366F1"   // indigo-500
+        };
+
         // DOM元素
         const ingredientsContainer = document.getElementById('ingredients-container');
         const searchInput = document.getElementById('search-input');
@@ -2348,21 +2368,26 @@
 
         // 抽取卡片创建逻辑，保持代码清晰
         function createCard(ingredient) {
-            const categoryColor = categoryColors[ingredient.category] || 'bg-gradient-to-r from-gray-500 to-gray-600';
+            const categoryColorClass = categoryColors[ingredient.category] || 'bg-gradient-to-r from-gray-500 to-gray-600';
+            const mainColor = categoryMainColors[ingredient.category] || '#6B7280'; // 默认灰色
             
             const card = document.createElement('div');
-            card.className = 'bg-white rounded-xl shadow-soft transition-all-300 hover:shadow-hover w-full';
+            card.className = 'ingredient-card bg-white rounded-xl shadow-soft transition-all-300 hover:shadow-hover w-full relative overflow-hidden';
             card.setAttribute('data-category', ingredient.category);
             card.setAttribute('data-name', ingredient.name.toLowerCase());
             
             card.innerHTML = `
-                <div class="p-6">
+                <!-- 顶部渐变背景 -->
+                <div class="absolute top-0 left-0 right-0 h-1/2 gradient-layer"
+                     style="background: linear-gradient(to bottom, ${mainColor} 0%, transparent 100%);">
+                </div>
+                <div class="p-6 relative z-10">
                     <!-- 主类目标签 -->
                     <div class="text-center py-2 mb-2 border-b border-gray-100">
-                        <span class="${categoryColor} text-white text-xs px-3 py-1 rounded-full">${ingredient.category}</span>
+                        <span class="${categoryColorClass} text-white text-xs px-3 py-1 rounded-full">${ingredient.category}</span>
                     </div>
                     
-                    <!-- 子类标签区域（新） -->
+                    <!-- 子类标签区域 -->
                     ${ingredient.subcategories && ingredient.subcategories.length > 0 ? `
                     <div class="flex flex-wrap gap-1 justify-center mb-3">
                         ${ingredient.subcategories.map(sub => `<span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">${sub}</span>`).join('')}
@@ -2587,9 +2612,14 @@
         // 收起搜索框（仅当内容为空时）
         function collapseSearch() {
             if (searchInput.value.trim() === '') {
+                // 先收起搜索框
                 searchInput.classList.remove('w-64', 'w-full', 'opacity-100', 'px-4');
                 searchInput.classList.add('w-0', 'opacity-0');
-                searchButton.classList.remove('hidden'); // 显示放大镜按钮
+                
+                // 添加延迟，等搜索框完全收回收起后再显示放大镜按钮
+                setTimeout(() => {
+                    searchButton.classList.remove('hidden'); // 显示放大镜按钮
+                }, 300); // 延迟时间与 CSS transition 时间一致
             }
         }
 
