@@ -86,29 +86,6 @@
             box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.25); /* 对应 Tailwind shadow-xl */
             transition: all 0.3s ease;
         }
-              /* 页面水印 - 平铺版本 */
-        /* 添加多个水印副本增强覆盖 */
-        body::before {
-            content: "所有内容仅供参考，使用前请自行查证可用性，有问题和网站无关";
-            position: fixed;
-            top: 20%;
-            left: -5%;
-            right: -5%;
-            bottom: 20%;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            /* 核心修改：用clamp()实现响应式字体大小 */
-            font-size: clamp(10px, 3vw, 40px); 
-            color: rgba(107, 114, 128, 0.1);
-            font-weight: 500;
-            pointer-events: none;
-            z-index: 9998;
-            transform: rotate(-15deg);
-            /* 可选：如果希望文字在超小屏允许换行，可删除下面这行 */
-            white-space: nowrap; 
-        }
               /* 标题右侧红色水印 */
         .header-watermark {
             color: #ef4444 !important;
