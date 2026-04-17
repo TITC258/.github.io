@@ -99,13 +99,15 @@
             flex-wrap: wrap;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            /* 核心修改：用clamp()实现响应式字体大小 */
+            font-size: clamp(10px, 3vw, 40px); 
             color: rgba(107, 114, 128, 0.1);
             font-weight: 500;
             pointer-events: none;
             z-index: 9998;
             transform: rotate(-15deg);
-            white-space: nowrap;
+            /* 可选：如果希望文字在超小屏允许换行，可删除下面这行 */
+            white-space: nowrap; 
         }
               /* 标题右侧红色水印 */
         .header-watermark {
@@ -120,7 +122,7 @@
             background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
             padding: 4px 14px;
             border-radius: 30px;
-            box-shadow: 0 2px 6px rgba(239, 68, 68, 0.12);
+            box-shadow: 0 2px 6px rgba(239, 68, 68, 0.15);
         }
         @media (max-width: 640px) {
             .header-watermark {
@@ -129,6 +131,171 @@
                 padding: 3px 10px;
             }
         }
+        /* 平板尺寸标题区域优化 */
+        @media (min-width: 641px) and (max-width: 1023px) {
+            .header-title-wrapper {
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+                gap: 8px 4px !important;
+            }
+            .header-title-wrapper h1 {
+                font-size: 1.5rem !important;
+                white-space: nowrap !important;
+            }
+            .header-watermark {
+                font-size: 12px !important;
+                padding: 3px 12px !important;
+                white-space: nowrap !important;
+                margin-left: 0 !important;
+            }
+            .header-badge {
+                font-size: 11px !important;
+                padding: 2px 8px !important;
+                white-space: nowrap !important;
+            }
+        }
+        /* 违规词提示气泡 */
+        .compliance-tip-bubble {
+            background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%);
+            border-left: 4px solid #f59e0b;
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-top: 24px;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .tip-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .tip-icon {
+            background: #f59e0b;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 14px;
+        }
+        .tip-text {
+            color: #78350f;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .tip-text strong {
+            color: #b45309;
+        }
+        .tip-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+        .tip-btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .tip-btn-ignore {
+            background: transparent;
+            color: #6b7280;
+            border: 1px solid #d1d5db;
+        }
+        .tip-btn-ignore:hover {
+            background: #f3f4f6;
+        }
+        .tip-btn-go {
+            background: #f59e0b;
+            color: white;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+        .tip-btn-go:hover {
+            background: #d97706;
+            transform: scale(1.02);
+        }
+        /* 导航栏内违规词提示气泡 */
+        .compliance-tip-bubble-nav {
+            background: #ffffff;
+            border-left: 4px solid #f59e0b;
+            border-radius: 12px;
+            padding: 14px 16px;
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.12);
+            animation: slideDown 0.25s ease-out;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .compliance-tip-bubble-nav .tip-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .compliance-tip-bubble-nav .tip-icon {
+            background: #f59e0b;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 12px;
+        }
+        .compliance-tip-bubble-nav .tip-text {
+            color: #78350f;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .compliance-tip-bubble-nav .tip-text strong {
+            color: #b45309;
+        }
+        .compliance-tip-bubble-nav .tip-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .compliance-tip-bubble-nav .tip-btn {
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .compliance-tip-bubble-nav .tip-btn-ignore {
+            background: transparent;
+            color: #6b7280;
+            border: 1px solid #d1d5db;
+        }
+        .compliance-tip-bubble-nav .tip-btn-ignore:hover {
+            background: #f3f4f6;
+        }
+        .compliance-tip-bubble-nav .tip-btn-go {
+            background: #f59e0b;
+            color: white;
+            box-shadow: 0 2px 6px rgba(245, 158, 11, 0.25);
+        }
+        .compliance-tip-bubble-nav .tip-btn-go:hover {
+            background: #d97706;
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
@@ -136,13 +303,15 @@
     <div id="cursor-dot" class="fixed w-6 h-6 rounded-full bg-primary/20 pointer-events-none z-[100] transition-all duration-200 ease-out" style="transform: translate(-50%, -50%); left: 0; top: 0; opacity: 0;"></div>
 
     <!-- 顶部导航栏 -->
+    <!-- 顶部导航栏 -->
     <header class="bg-white/80 backdrop-blur-md shadow-soft sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between">
-               <div class="flex items-center mb-4 md:mb-0">
-                    <h1 class="text-2xl font-bold text-primary">化妆品活性成分总览</h1>
-                    <span class="ml-2 text-sm bg-primary/10 text-primary px-2 py-1 rounded-full">TEMU跨境爆款适配版</span>
-                    <span class="header-watermark">所有内容仅供参考，使用前请自行查证可用性，有问题和网站无关</span>
-                </div>
+            <!-- 移动端：垂直排列，避免挤压 -->
+            <div class="header-title-wrapper flex flex-wrap items-center justify-center md:justify-start gap-y-2 gap-x-2 mb-4 md:mb-0 w-full">
+                <h1 class="text-2xl font-bold text-primary">护肤品常用成分参考</h1>
+                <span class="header-badge text-sm bg-primary/10 text-primary px-2 py-1 rounded-full">TEMU跨境爆款适配版</span>
+                <span class="header-watermark">所有内容仅供参考，使用前请自行查证可用性，有问题和网站无关</span>
+            </div>
             <div class="w-full md:w-1/3">
                 <div id="search-container" class="relative flex items-center justify-end">
                     <input type="text" id="search-input" placeholder="搜索..." class="w-0 px-0 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300 opacity-0">
@@ -159,9 +328,9 @@
         <div class="flex flex-col lg:flex-row gap-8">
             <!-- 左侧分类导航 -->
             <aside class="lg:w-1/4 lg:sticky lg:top-24 lg:self-start">
+                <!-- 分类卡片 -->
                 <div class="bg-white rounded-xl shadow-soft p-4">
                     <h2 class="text-lg font-bold text-gray-800 mb-4">成分分类</h2>
-                    <!-- 改为响应式网格布局：手机2列，平板3列，桌面1列 -->
                     <nav class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-2">
                         <button class="category-btn active text-center bg-gradient-primary text-white px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray/20" data-category="all">全部成分</button>
                         <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray-200" data-category="基础保湿锁水类" style="color: rgb(33, 33, 33);">基础保湿锁水</button>
@@ -171,6 +340,23 @@
                         <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray-200" data-category="网红爆款抗氧化类">网红爆款抗氧化</button>
                         <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray-200" data-category="违规词参考">违规词参考</button>
                     </nav>
+                </div>
+                <!-- 违规词提示气泡（独立卡片，初始隐藏） -->
+                <div id="prohibitedTipBubble" class="compliance-tip-bubble-nav hidden mt-4">
+                    <div class="tip-content">
+                        <div class="tip-icon">
+                            <i class="fa fa-exclamation"></i>
+                        </div>
+                        <div class="tip-text">
+                            <strong>⚠️ 使用前请注意</strong><br>
+                            本页面违规词库整理自公开合规指引，实际应用时请以平台最新政策为准。
+                            推荐优先参考 <strong>官方违规词库来源</strong>，获取最权威的判定标准。
+                        </div>
+                    </div>
+                    <div class="tip-actions">
+                        <button class="tip-btn tip-btn-ignore" id="ignoreNavTipBtn">我不管</button>
+                        <button class="tip-btn tip-btn-go" id="goToSourceNavBtn">去看看</button>
+                    </div>
                 </div>
             </aside>
 
@@ -189,13 +375,19 @@
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center mb-4 md:mb-0">
-                    <h1 class="text-2xl font-bold text-primary">化妆品活性成分总览</h1>
-                    <span class="ml-2 text-sm bg-primary/10 text-primary px-2 py-1 rounded-full">TEMU跨境爆款适配版</span>
-                    <span class="header-watermark">所有内容仅供参考，使用前请自行查证可用性，有问题和网站无关</span>
+                    <h1 class="text-2xl font-bold text-primary" style="color: rgb(243, 242, 252);">护肤品常用成分参考</h1>
+                    <span class="header-watermark" style="color: rgb(252, 30, 30);">所有内容仅供参考，使用前请自行查证可用性，有问题和网站无关</span>
+                    <span class="ml-2 text-sm bg-primary/10 text-primary px-2 py-1 rounded-full" style="color: rgb(241, 240, 255);">TEMU跨境爆款适配版</span>
                 </div>
-                <div class="text-sm text-gray-400">
-                    <p>© 2025 化妆品成分数据库</p>
-                    <p>所有功效表述严格符合TEMU全球站点药监合规要求</p>
+                <div class="text-sm text-gray-400 text-right">
+                    <p>© 2026 护肤品常用成分参考</p>
+                    <p class="mt-1" style="color: rgb(158, 158, 158);">违规词库来源：TEMU平台合规指引</p>
+                    <p class="mt-2">
+                        <a href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=19802919030" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white text-xs font-medium rounded-full transition-all duration-200 border border-white/20 hover:border-white/40">
+                            <span>前往</span>
+                            <i class="fa fa-external-link text-[10px]"></i>
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -2684,6 +2876,7 @@
         }
 
         // 渲染违规词对照页面（改进版，左右对齐）
+        // 渲染违规词对照页面（改进版，左右对齐 + 底部提示气泡）
         function renderProhibitedWords(data) {
             ingredientsContainer.innerHTML = ''; // 清空容器
             ingredientsContainer.className = 'flex flex-col gap-6';
@@ -2699,32 +2892,24 @@
             ingredientsContainer.appendChild(wrapper);
 
             data.forEach(category => {
-                // 每个分类的容器
                 const categoryDiv = document.createElement('div');
                 categoryDiv.className = 'mb-8';
                 
-                // 分类标题
                 const title = document.createElement('h3');
                 title.className = 'text-lg font-semibold text-primary mb-3 pb-1 border-b border-gray-200';
                 title.textContent = category.category;
                 categoryDiv.appendChild(title);
 
-                // 创建网格容器，两列，列宽自动分配，间隙
                 const grid = document.createElement('div');
                 grid.className = 'grid grid-cols-1 lg:grid-cols-2 gap-4';
 
                 category.items.forEach(item => {
-                    // 英文单元格
                     const enDiv = document.createElement('div');
                     enDiv.className = 'text-gray-700';
                     enDiv.textContent = item.en;
-
-                    // 中文单元格
                     const zhDiv = document.createElement('div');
                     zhDiv.className = 'text-gray-700';
                     zhDiv.textContent = item.zh;
-
-                    // 将两个单元格作为直接子项放入网格，grid 会自动按顺序填充两列
                     grid.appendChild(enDiv);
                     grid.appendChild(zhDiv);
                 });
@@ -2732,6 +2917,8 @@
                 categoryDiv.appendChild(grid);
                 wrapper.appendChild(categoryDiv);
             });
+
+
         }
 
         // 过滤违规词数据
@@ -2817,6 +3004,16 @@
                     btn.classList.add('bg-white', 'text-neutral-dark');
                 }
             });
+            
+            // 控制导航栏气泡显示/隐藏
+            const navTipBubble = document.getElementById('prohibitedTipBubble');
+            if (navTipBubble) {
+                if (category === '违规词参考') {
+                    navTipBubble.classList.remove('hidden');
+                } else {
+                    navTipBubble.classList.add('hidden');
+                }
+            }
             
             filterIngredients();
         }
@@ -3006,8 +3203,25 @@
         animateDot();
 
         // 初始化页面
-        // 初始化页面
         renderIngredients(mergedIngredientsData);
+        
+        // 绑定导航栏气泡按钮事件（需要等DOM加载完成）
+        setTimeout(() => {
+            const ignoreBtn = document.getElementById('ignoreNavTipBtn');
+            const goBtn = document.getElementById('goToSourceNavBtn');
+            const bubble = document.getElementById('prohibitedTipBubble');
+            
+            if (ignoreBtn) {
+                ignoreBtn.addEventListener('click', function() {
+                    if (bubble) bubble.classList.add('hidden');
+                });
+            }
+            if (goBtn) {
+                goBtn.addEventListener('click', function() {
+                    window.open('https://seller.kuajingmaihuo.com/questionnaire?surveyId=19802919030', '_blank', 'noopener,noreferrer');
+                });
+            }
+        }, 100);
     </script>
 
 </body></html>
