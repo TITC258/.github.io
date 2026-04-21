@@ -82,32 +82,9 @@
 
         /* 导航按钮悬停效果 */
         .category-btn:hover {
-            transform: translateY(-10px); /* 向上移动 8px，可根据需要调整 */
+            transform: translateY(-5px); /* 向上移动 8px，可根据需要调整 */
             box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.25); /* 对应 Tailwind shadow-xl */
             transition: all 0.3s ease;
-        }
-              /* 页面水印 - 平铺版本 */
-        /* 添加多个水印副本增强覆盖 */
-        body::before {
-            content: "所有内容仅供参考，使用前请自行查证可用性，有问题和网站无关";
-            position: fixed;
-            top: 20%;
-            left: -5%;
-            right: -5%;
-            bottom: 20%;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            /* 核心修改：用clamp()实现响应式字体大小 */
-            font-size: clamp(10px, 3vw, 40px); 
-            color: rgba(107, 114, 128, 0.1);
-            font-weight: 500;
-            pointer-events: none;
-            z-index: 9998;
-            transform: rotate(-15deg);
-            /* 可选：如果希望文字在超小屏允许换行，可删除下面这行 */
-            white-space: nowrap; 
         }
               /* 标题右侧红色水印 */
         .header-watermark {
@@ -340,13 +317,13 @@
                     <h2 class="text-lg font-bold text-gray-800 mb-4">成分分类</h2>
                     <nav class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-2">
                         <button class="category-btn active text-center bg-gradient-primary text-white px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray/20" data-category="all">全部成分</button>
-                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray-200" data-category="基础保湿锁水类" style="color: rgb(33, 33, 33);">基础保湿锁水</button>
+                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray-200" data-category="基础保湿锁水类">基础保湿锁水</button>
                         <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray-200" data-category="紧致抗老提拉类">紧致抗老提拉</button>
                         <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray-200" data-category="提亮美白焕肤类">提亮美白焕肤</button>
                         <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray-200" data-category="舒缓修护敏感肌类">舒缓修护敏感肌</button>
                         <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray-200" data-category="网红爆款抗氧化类">网红爆款抗氧化</button>
                         <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray-200" data-category="违规词参考">违规词参考</button>
-                        <button class="category-btn text-center bg-white text-neutral-dark px-3 py-2 lg:px-4 lg:py-3 rounded-lg transition-all-300 text-sm lg:text-base w-full shadow-none border border-gray-200" data-category="game" style="color: rgb(33, 33, 33);">小游戏</button>
+
                     </nav>
                 </div>
                 <!-- 违规词提示气泡（独立卡片，初始隐藏） -->
@@ -366,6 +343,8 @@
                         <button class="tip-btn tip-btn-go" id="goToSourceNavBtn">去看看</button>
                     </div>
                 </div>
+              <!-- 右侧快速导航容器 -->
+              <div id="quick-nav" class="fixed right-0 top-1/2 transform -translate-y-1/2 z-40 flex flex-col gap-2"></div>
             </aside>
 
             <!-- 右侧成分列表 -->
@@ -2637,7 +2616,7 @@
                 description: '经典雷电射击游戏，控制战机躲避敌机，发射子弹击落敌人，体验畅快战斗。',
                 icon: 'fa-fighter-jet',
                 color: 'from-sky-500 to-indigo-600',
-                file: './tkdz.html'  // 请根据实际文件名调整路径
+                file: './plane-game.html'  // 请根据实际文件名调整路径
             }
         ];
 
