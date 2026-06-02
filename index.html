@@ -113,7 +113,6 @@
             box-shadow: 0 8px 22px rgba(168,85,247,0.22);
         }
 
-        /* ✅ 这里彻底修复深色模式方块问题 */
         .title-gradient {
             background: linear-gradient(90deg, #A855F7, #EC4899);
             background-clip: text;
@@ -127,6 +126,7 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* 退场动画 */
         .page-exit { animation: pageExit 0.8s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
         .nav-exit { animation: navExit 0.6s ease forwards; }
         @keyframes pageExit { to { opacity: 0; } }
@@ -155,6 +155,7 @@
     </main>
 
     <script>
+        // ---------- 深色模式 ----------
         function initTheme() {
             const btn = document.getElementById('themeToggle');
             const icon = btn.querySelector('i');
@@ -173,26 +174,69 @@
             };
         }
 
+        // 防止退场动画期间重复点击
+        let isExiting = false;
+
+        // 退场动画（跳转前不清理类，避免闪现）
         function pageExitAnimation(url) {
+            if (isExiting) return; // 已在进行退场，忽略新点击
+            isExiting = true;
+
             const body = document.body;
             const title = document.getElementById('pageTitle');
             const nav = document.getElementById('navContainer');
 
+            // 添加退场类（触发动画，最终 opacity:0 等）
             body.classList.add('page-exit');
             title.classList.add('nav-exit');
             nav.classList.add('nav-exit');
-            document.querySelectorAll('.nav-link').forEach(l => l.style.pointerEvents = 'none');
+            // 禁用所有链接点击，防止二次触发
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.style.pointerEvents = 'none';
+            });
 
+            // 等待动画结束后直接跳转（不主动移除类，避免闪现）
             setTimeout(() => {
-                body.classList.remove('page-exit');
-                title.classList.remove('nav-exit');
-                nav.classList.remove('nav-exit');
                 window.location.href = url;
+                // 注意：跳转后页面将被卸载，无需清理类
             }, 800);
         }
 
+        // 重置所有退场/入场状态（用于后退/前进时恢复）
+        function resetPageState() {
+            const body = document.body;
+            const title = document.getElementById('pageTitle');
+            const nav = document.getElementById('navContainer');
+            const links = document.querySelectorAll('.nav-link');
+
+            // 1. 移除退场类
+            body.classList.remove('page-exit');
+            title.classList.remove('nav-exit');
+            nav.classList.remove('nav-exit');
+            // 2. 恢复指针事件
+            links.forEach(link => {
+                link.style.pointerEvents = '';
+            });
+            // 3. 重置退出标志
+            isExiting = false;
+
+            // 4. 重新触发入场动画（先移除再重新添加动画类）
+            title.style.animation = 'none';
+            const animatedItems = document.querySelectorAll('.animate-fade-in-up');
+            animatedItems.forEach(el => el.style.animation = 'none');
+            
+            // 强制重绘后重新添加动画
+            setTimeout(() => {
+                title.style.animation = '';
+                animatedItems.forEach(el => el.style.animation = '');
+            }, 20);
+        }
+
+        // 初始化导航点击事件（使用原生 onclick 覆盖默认链接行为）
         function initNav() {
-            document.querySelectorAll('.nav-link').forEach(link => {
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => {
+                // 移除可能残留的旧事件，重新绑定
                 link.onclick = (e) => {
                     e.preventDefault();
                     pageExitAnimation(link.getAttribute('href'));
@@ -200,22 +244,20 @@
             });
         }
 
-        window.addEventListener('pageshow', () => {
-            const title = document.getElementById('pageTitle');
-            const navs = document.querySelectorAll('.animate-fade-in-up');
-            
-            title.style.animation = 'none';
-            navs.forEach(n => n.style.animation = 'none');
-            
-            setTimeout(() => {
-                title.style.animation = '';
-                navs.forEach(n => n.style.animation = '');
-            }, 20);
+        // 监听 pageshow（包括后退/前进时）
+        window.addEventListener('pageshow', (event) => {
+            // 无论是否来自 bfcache，都重置页面状态
+            resetPageState();
+            // 重新绑定导航事件（防止 bfcache 导致事件丢失，但通常不会）
+            initNav();
         });
 
+        // 页面首次加载
         window.onload = () => {
             initTheme();
             initNav();
+            // 确保初始状态没有任何退场残留（保险）
+            resetPageState();
         };
     </script>
 </body>
