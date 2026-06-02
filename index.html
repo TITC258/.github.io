@@ -6,10 +6,11 @@
     <title>小箱子 - 首页</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    
-    <!-- 配置Tailwind自定义颜色 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -25,13 +26,13 @@
                         }
                     },
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        sans: ['Noto Sans SC', 'system-ui', 'sans-serif'],
                     },
                 }
             }
         }
     </script>
-    
+
     <style type="text/tailwindcss">
         @layer utilities {
             .text-gradient {
@@ -40,405 +41,204 @@
                 -webkit-text-fill-color: transparent;
             }
             .hover-lift {
-                /* 所有属性同步柔和过渡，时长0.4秒 */
                 transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             }
             .hover-lift:hover {
                 transform: translateY(-5px) scale(1.05);
-                /* 阴影减淡20% */
                 box-shadow: 0 16px 20px -5px rgba(0, 0, 0, 0.08), 0 8px 8px -5px rgba(0, 0, 0, 0.032);
                 background-color: #ffffff;
                 border-color: rgba(168, 85, 247, 0.15);
             }
+            .dark .hover-lift:hover {
+                box-shadow: 0 16px 30px -5px rgba(168, 85, 247, 0.22), 0 8px 15px -5px rgba(168, 85, 247, 0.12);
+                background-color: rgba(30, 30, 40, 0.8);
+                border-color: rgba(168, 85, 247, 0.3);
+            }
+            .page-exit {
+                animation: pageExit 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            }
+            .nav-exit {
+                animation: navExit 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            }
         }
-        
-        /* 全局样式 */
+
+        /* 浅色上下渐变背景 */
         body {
             overflow-x: hidden;
-            background-color: #ffffff;
+            background: linear-gradient(to bottom, rgba(168, 85, 247, 0.15), #ffffff 70%);
+            transition: background 0.4s ease;
+            position: relative;
         }
-        
-        /* 光效背景容器 */
-        .light-effect {
+
+        /* 深色模式：边缘环绕呼吸光，纯色底色 */
+        body.dark {
+            background: #0f0f17;
+        }
+        body.dark::before {
+            content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        /* 光效点样式 - 呼吸节奏 */
-        .light-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0;
+            inset: 0;
             pointer-events: none;
-            /* 呼吸节奏：1.5秒浮现/隐去 */
-            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+            box-shadow: inset 0 0 120px 25px rgba(168, 85, 247, 0.18);
+            animation: borderBreath 3.5s ease-in-out infinite alternate;
+            z-index: -1;
         }
-        
+        @keyframes borderBreath {
+            from {box-shadow: inset 0 0 100px 18px rgba(168, 85, 247, 0.12);}
+            to {box-shadow: inset 0 0 160px 32px rgba(168, 85, 247, 0.24);}
+        }
+
+        /* 标题：匀速下落无回弹 */
+        @keyframes dropDown {
+            from {opacity:0;transform: translateY(-140px);}
+            to {opacity:1;transform: translateY(0);}
+        }
+        .animate-drop {
+            animation: dropDown 1s ease-out forwards;
+        }
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from {opacity:0;transform: translateY(30px);}
+            to {opacity:1;transform: translateY(0);}
         }
-        
         .animate-fade-in-up {
             animation: fadeInUp 0.8s ease forwards;
         }
-        
-        .delay-200 {
-            animation-delay: 0.2s;
-        }
-        
-        .delay-300 {
-            animation-delay: 0.3s;
-        }
-        
-        /* 导航选项样式 - 所有按钮默认带描边 */
+        .delay-200{animation-delay:0.2s;opacity:0;}
+        .delay-300{animation-delay:0.3s;opacity:0;}
+
+        /* 导航按钮 */
         .nav-option {
-            position: relative;
-            padding: 1rem 2.5rem;
-            font-size: 1.5rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            opacity: 0;
-            /* 未浮起时透明背景 + 淡紫色描边 */
-            background-color: transparent;
-            border-radius: 12px;
-            border: 1px solid rgba(168, 85, 247, 0.1);
+            padding:1rem 2.5rem;
+            font-size:1.5rem;
+            font-weight:500;
+            cursor:pointer;
+            transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+            background:transparent;
+            border-radius:12px;
+            border:1px solid rgba(168,85,247,0.1);
+            color:#374151;
+        }
+        .dark .nav-option {
+            border-color:rgba(168,85,247,0.2);
+            color:#d1d5db;
+        }
+
+        /* 顶部居中切换按钮 */
+        .theme-toggle {
+            position:fixed;
+            top:24px;
+            left:50%;
+            transform:translateX(-50%);
+            width:46px;height:46px;
+            border-radius:12px;
+            border:1px solid rgba(168,85,247,0.12);
+            background:transparent;
+            display:flex;align-items:center;justify-content:center;
+            font-size:1.2rem;color:#6b7280;
+            transition:all 0.35s ease;
+            z-index:999;
+        }
+        .theme-toggle:hover {
+            transform:translateX(-50%) translateY(-3px);
+            background:#fff;
+            border-color:rgba(168,85,247,0.18);
+            box-shadow:0 8px 18px rgba(0,0,0,0.07);
+        }
+        .dark .theme-toggle {
+            border-color:rgba(168,85,247,0.25);
+            color:#c2c7d0;
+        }
+        .dark .theme-toggle:hover {
+            background:rgba(32,32,45,0.75);
+            box-shadow:0 8px 20px rgba(168,85,247,0.16);
+        }
+
+        .title-gradient {
+            background:linear-gradient(90deg,#A855F7,#EC4899);
+            background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+        }
+        .dark .title-gradient {
+            background:linear-gradient(90deg,#C084FC,#F472B6);
+            background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+        }
+
+        @keyframes pageExit {
+            to {opacity:0;background:#fafafa;}
+        }
+        .dark .page-exit {
+            to {opacity:0;background:#0a0a0f;}
+        }
+        @keyframes navExit {
+            to {opacity:0;transform:translateY(30px) scale(0.95);}
         }
     </style>
 </head>
 <body class="font-sans min-h-screen flex flex-col">
-    <!-- 光效背景 - 双缓冲无闪烁 -->
-    <div class="light-effect" id="lightEffect">
-        <div class="light-orb" id="orb1a"></div>
-        <div class="light-orb" id="orb1b"></div>
-        <div class="light-orb" id="orb2a"></div>
-        <div class="light-orb" id="orb2b"></div>
-        <div class="light-orb" id="orb3a"></div>
-        <div class="light-orb" id="orb3b"></div>
-    </div>
-    
-    <!-- 主内容区 -->
+    <button id="themeToggle" class="theme-toggle">
+        <i class="fa fa-moon-o"></i>
+    </button>
+
     <main class="flex-grow flex flex-col items-center justify-center px-4 py-12">
-        <!-- 标题 -->
-        <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold mb-16 text-center animate-fade-in-up">
-            <span class="bg-gradient-to-r from-primary-light to-secondary-light text-gradient">小箱子</span>
+        <h1 id="pageTitle" class="text-[clamp(2.5rem,8vw,5rem)] font-bold mb-16 text-center animate-drop">
+            <span class="title-gradient">小箱子</span>
         </h1>
-        
-        <!-- 导航选项 - 已删除首页按钮 -->
-        <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
-            <!-- 成分页面跳转 - 修改href属性为你的成分页面路径 -->
-            <a href="index1.html" class="nav-option text-gray-700 animate-fade-in-up delay-200 hover-lift">
+        <div id="navContainer" class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
+            <a href="index1.html" class="nav-option animate-fade-in-up delay-200 hover-lift nav-link">
                 <i class="fa fa-flask mr-2"></i>成分
             </a>
-            
-            <!-- 工具页面跳转 - 修改href属性为你的工具页面路径 -->
-            <a href="tool.html" class="nav-option text-gray-700 animate-fade-in-up delay-300 hover-lift">
+            <a href="tool.html" class="nav-option animate-fade-in-up delay-300 hover-lift nav-link">
                 <i class="fa fa-wrench mr-2"></i>工具
             </a>
         </div>
     </main>
-    
+
     <script>
-        // 光效系统配置 - 完全按照呼吸节奏调整
-        const config = {
-            colors: [
-                { name: 'purple', value: 'linear-gradient(135deg, #A855F7, #EC4899)' },
-                { name: 'indigo', value: 'linear-gradient(135deg, #6366F1, #8B5CF6)' },
-                { name: 'pink', value: 'linear-gradient(135deg, #EC4899, #F472B6)' }
-            ],
-            minSize: 300, // 最小尺寸
-            maxSize: 600, // 最大尺寸
-            visibleDuration: 1000, // 光效点保持可见的时间(ms) - 对应呼吸的屏息阶段
-            transitionDuration: 1500, // 过渡动画时长(ms) - 对应吸气/呼气时间，必须与CSS一致
-            minOverlap: 500, // 最小重叠时间(ms)
-            maxOverlap: 1500, // 最大重叠时间(ms)
-            minDistance: 250, // 光效点之间的最小距离(px)
-            gridPadding: 50 // 网格内边距，避免光效点太靠近边缘
-        };
-        
-        // 双缓冲光效点系统
-        const orbSystems = [
-            {
-                elements: [document.getElementById('orb1a'), document.getElementById('orb1b')],
-                activeIndex: 0,
-                state: { 
-                    x: 0, y: 0, 
-                    colorIndex: -1, size: 0, 
-                    gridIndex: -1, 
-                    isVisible: false, 
-                    timer: null
-                }
-            },
-            {
-                elements: [document.getElementById('orb2a'), document.getElementById('orb2b')],
-                activeIndex: 0,
-                state: { 
-                    x: 0, y: 0, 
-                    colorIndex: -1, size: 0, 
-                    gridIndex: -1, 
-                    isVisible: false, 
-                    timer: null
-                }
-            },
-            {
-                elements: [document.getElementById('orb3a'), document.getElementById('orb3b')],
-                activeIndex: 0,
-                state: { 
-                    x: 0, y: 0, 
-                    colorIndex: -1, size: 0, 
-                    gridIndex: -1, 
-                    isVisible: false, 
-                    timer: null
+        // 主题切换
+        function initThemeToggle(){
+            const btn=document.getElementById('themeToggle');
+            const icon=btn.querySelector('i');
+            const save=localStorage.getItem('theme');
+            if(save==='dark'||(!save&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
+                document.body.classList.add('dark');
+                icon.classList.replace('fa-moon-o','fa-sun-o');
+            }
+            btn.onclick=()=>{
+                const isDark=document.body.classList.toggle('dark');
+                if(isDark){
+                    icon.classList.replace('fa-moon-o','fa-sun-o');
+                    localStorage.setItem('theme','dark');
+                }else{
+                    icon.classList.replace('fa-sun-o','fa-moon-o');
+                    localStorage.setItem('theme','light');
                 }
             }
-        ];
-        
-        // 生成随机数
-        function random(min, max) {
-            return Math.random() * (max - min) + min;
         }
-        
-        // 获取可用的网格索引（确保三个光效点分布在不同的网格）
-        function getAvailableGridIndex() {
-            // 9个网格区域：
-            // 0 1 2
-            // 3 4 5
-            // 6 7 8
-            const usedGrids = orbSystems
-                .filter(system => system.state.isVisible && system.state.gridIndex !== -1)
-                .map(system => system.state.gridIndex);
-            
-            // 优先选择不同行和列的网格
-            const availableGrids = [0, 1, 2, 3, 4, 5, 6, 7, 8].filter(i => !usedGrids.includes(i));
-            
-            if (availableGrids.length === 0) {
-                return Math.floor(Math.random() * 9);
-            }
-            
-            // 智能选择：优先选择与已用网格不在同一行和列的
-            const usedRows = usedGrids.map(g => Math.floor(g / 3));
-            const usedCols = usedGrids.map(g => g % 3);
-            
-            const preferredGrids = availableGrids.filter(g => {
-                const row = Math.floor(g / 3);
-                const col = g % 3;
-                return !usedRows.includes(row) && !usedCols.includes(col);
-            });
-            
-            if (preferredGrids.length > 0) {
-                return preferredGrids[Math.floor(Math.random() * preferredGrids.length)];
-            }
-            
-            // 如果没有完美选项，选择不在同一行的
-            const rowPreferredGrids = availableGrids.filter(g => {
-                const row = Math.floor(g / 3);
-                return !usedRows.includes(row);
-            });
-            
-            if (rowPreferredGrids.length > 0) {
-                return rowPreferredGrids[Math.floor(Math.random() * rowPreferredGrids.length)];
-            }
-            
-            // 否则随机选择可用网格
-            return availableGrids[Math.floor(Math.random() * availableGrids.length)];
+
+        // 页面退场跳转
+        function pageExitAnimation(url){
+            document.body.classList.add('page-exit');
+            document.getElementById('pageTitle').style.animation='navExit 0.6s forwards';
+            document.getElementById('navContainer').classList.add('nav-exit');
+            setTimeout(()=>location.href=url,800);
         }
-        
-        // 根据网格索引生成随机位置
-        function getPositionFromGrid(gridIndex) {
-            const gridWidth = window.innerWidth / 3;
-            const gridHeight = window.innerHeight / 3;
-            
-            const row = Math.floor(gridIndex / 3);
-            const col = gridIndex % 3;
-            
-            // 在网格内随机生成位置，保留内边距
-            const x = col * gridWidth + random(config.gridPadding, gridWidth - config.gridPadding);
-            const y = row * gridHeight + random(config.gridPadding, gridHeight - config.gridPadding);
-            
-            return { x, y };
-        }
-        
-        // 检查新位置是否与其他光效点距离过近（作为网格算法的补充）
-        function isValidPosition(systemIndex, x, y) {
-            for (let i = 0; i < orbSystems.length; i++) {
-                if (i === systemIndex || !orbSystems[i].state.isVisible) continue;
-                
-                const dx = x - orbSystems[i].state.x;
-                const dy = y - orbSystems[i].state.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                
-                if (distance < config.minDistance) {
-                    return false;
+
+        // 导航点击
+        function initNav(){
+            const links=document.querySelectorAll('.nav-link');
+            links.forEach(item=>{
+                item.onclick=e=>{
+                    e.preventDefault();
+                    const url=item.getAttribute('href');
+                    links.forEach(l=>l.style.pointerEvents='none');
+                    pageExitAnimation(url);
                 }
-            }
-            return true;
+            })
         }
-        
-        // 生成有效的随机位置（网格优先 + 距离检查）
-        function getValidPosition(systemIndex) {
-            const gridIndex = getAvailableGridIndex();
-            orbSystems[systemIndex].state.gridIndex = gridIndex;
-            
-            let x, y;
-            let attempts = 0;
-            
-            do {
-                const pos = getPositionFromGrid(gridIndex);
-                x = pos.x;
-                y = pos.y;
-                attempts++;
-            } while (!isValidPosition(systemIndex, x, y) && attempts < 20);
-            
-            orbSystems[systemIndex].state.x = x;
-            orbSystems[systemIndex].state.y = y;
-            
-            return { x, y };
+
+        window.onload=()=>{
+            initThemeToggle();
+            initNav();
         }
-        
-        // 获取未被使用的颜色索引
-        function getAvailableColorIndex() {
-            const usedIndices = orbSystems
-                .filter(system => system.state.isVisible && system.state.colorIndex !== -1)
-                .map(system => system.state.colorIndex);
-            
-            const availableIndices = [0, 1, 2].filter(i => !usedIndices.includes(i));
-            
-            if (availableIndices.length === 0) {
-                return Math.floor(Math.random() * 3);
-            }
-            
-            return availableIndices[Math.floor(Math.random() * availableIndices.length)];
-        }
-        
-        // 单个光效点的完整生命周期 - 呼吸节奏版本
-        function startOrbCycle(systemIndex) {
-            const system = orbSystems[systemIndex];
-            const state = system.state;
-            
-            // 清除之前的定时器
-            if (state.timer) {
-                clearTimeout(state.timer);
-                state.timer = null;
-            }
-            
-            // 获取当前非活跃的元素（后台准备）
-            const inactiveIndex = 1 - system.activeIndex;
-            const inactiveElement = system.elements[inactiveIndex];
-            const activeElement = system.elements[system.activeIndex];
-            
-            // 步骤1：在后台元素上准备新的光效（完全透明，不会显示）
-            // 每次呼吸都会生成全新的随机位置、大小和颜色
-            const size = random(config.minSize, config.maxSize);
-            const colorIndex = getAvailableColorIndex();
-            const position = getValidPosition(systemIndex);
-            const overlap = random(config.minOverlap, config.maxOverlap);
-            
-            state.size = size;
-            state.colorIndex = colorIndex;
-            
-            // 所有样式修改都在完全透明的后台元素上进行，不会有闪烁
-            inactiveElement.style.opacity = '0';
-            inactiveElement.style.transform = 'scale(0.8)';
-            inactiveElement.style.width = `${size}px`;
-            inactiveElement.style.height = `${size}px`;
-            inactiveElement.style.background = config.colors[colorIndex].value;
-            inactiveElement.style.left = `${position.x}px`;
-            inactiveElement.style.top = `${position.y}px`;
-            
-            // 强制浏览器重绘，确保样式应用完成
-            void inactiveElement.offsetWidth;
-            
-            // 步骤2：开始吸气（浮现）
-            state.timer = setTimeout(() => {
-                inactiveElement.style.opacity = '0.4';
-                inactiveElement.style.transform = 'scale(1)';
-                state.isVisible = true;
-                
-                // 步骤3：同时开始呼气（隐去）上一个光效
-                activeElement.style.opacity = '0';
-                activeElement.style.transform = 'scale(0.8)';
-                
-                // 步骤4：交换活跃元素索引
-                system.activeIndex = inactiveIndex;
-                
-                // 步骤5：屏息（保持可见）一段时间后开始下一次呼吸
-                state.timer = setTimeout(() => {
-                    // 在呼气过程中，启动下一个光效点的吸气
-                    const nextIndex = (systemIndex + 1) % 3;
-                    if (!orbSystems[nextIndex].state.isVisible) {
-                        state.timer = setTimeout(() => {
-                            startOrbCycle(nextIndex);
-                        }, overlap);
-                    }
-                    
-                    // 步骤6：完成本次呼吸，开始下一次
-                    state.timer = setTimeout(() => {
-                        state.isVisible = false;
-                        startOrbCycle(systemIndex);
-                    }, config.visibleDuration);
-                    
-                }, config.transitionDuration);
-                
-            }, 100);
-        }
-        
-        // 初始化光效系统
-        function initLightEffect() {
-            // 依次启动三个光效点，错开呼吸节奏
-            setTimeout(() => startOrbCycle(0), 0);
-            setTimeout(() => startOrbCycle(1), 1000);
-            setTimeout(() => startOrbCycle(2), 2000);
-            
-            // 定期检查并修复光效点状态
-            setInterval(() => {
-                const visibleCount = orbSystems.filter(s => s.state.isVisible).length;
-                if (visibleCount < 2) {
-                    const inactiveIndex = orbSystems.findIndex(s => !s.state.isVisible);
-                    if (inactiveIndex !== -1) {
-                        startOrbCycle(inactiveIndex);
-                    }
-                }
-            }, 3000);
-        }
-        
-        // 页面加载时初始化
-        window.addEventListener('load', initLightEffect);
-        
-        // 窗口大小改变时重新计算位置
-        window.addEventListener('resize', () => {
-            orbSystems.forEach((system, index) => {
-                if (system.state.isVisible) {
-                    const position = getValidPosition(index);
-                    const activeElement = system.elements[system.activeIndex];
-                    activeElement.style.left = `${position.x}px`;
-                    activeElement.style.top = `${position.y}px`;
-                }
-            });
-        });
-        
-        // 为导航选项添加点击效果
-        document.querySelectorAll('.nav-option').forEach(option => {
-            option.addEventListener('click', function(e) {
-                // 添加点击动画
-                this.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    this.style.transform = 'scale(1)';
-                }, 150);
-            });
-        });
     </script>
 </body>
 </html>
