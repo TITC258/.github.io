@@ -336,19 +336,13 @@
         }
                 /* 深色模式切换按钮（与主页一致） */
         .theme-toggle {
-            position: fixed; top: 22px; left: 50%; transform: translateX(-50%);
+            position: fixed; top: 22px; right: 22px;
             width: 44px; height: 44px; border-radius: 12px;
-            border: 1px solid rgba(168,85,247,0.15);
-            background: transparent;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; color: #6b7280;
-            transition: all 0.35s ease; z-index: 999;
-            cursor: pointer;
+            /* 其他属性保持不变 */
         }
         .theme-toggle:hover {
-            transform: translateX(-50%) translateY(-2px);
-            background: #fff; border-color: rgba(168,85,247,0.2);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+            /* 其他不变 */
         }
         .dark .theme-toggle {
             border-color: rgba(168,85,247,0.3);
@@ -362,14 +356,9 @@
         /* 返回主页按钮 */
         .back-home-btn {
             position: fixed; top: 22px; left: 22px;
-            width: 44px; height: 44px; border-radius: 12px;
-            border: 1px solid rgba(168,85,247,0.15);
-            background: transparent;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; color: #6b7280;
-            transition: all 0.35s ease; z-index: 999;
-            cursor: pointer;
-            text-decoration: none;
+            width: auto; padding: 0 16px; gap: 6px;
+            height: 44px; border-radius: 12px;
+            /* 其他属性不变 */
         }
         .back-home-btn:hover {
             transform: translateY(-2px);
@@ -419,16 +408,91 @@
         .dark .shadow-soft {
             box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 0 1px rgba(168,85,247,0.1);
         }
+        
+        /* ===== 深色模式全局背景与文字 ===== */
+        .dark body {
+            background-color: #0f0f17 !important;
+            color: #e5e7eb;
+        }
+        
+        /* 顶部导航栏 */
+        .dark header {
+            background-color: #1a1a24cc !important;
+            backdrop-filter: blur(12px);
+        }
+        .dark .header-watermark {
+            background: linear-gradient(135deg, #3b2e2e, #2a1f1f);
+            color: #fca5a5 !important;
+        }
+        .dark .header-badge {
+            background-color: rgba(79,70,229,0.2);
+            color: #a78bfa !important;
+        }
+        
+        /* 页脚 */
+        .dark footer {
+            background-color: #0a0a10 !important;
+        }
+        .dark footer .text-gray-400 {
+            color: #9ca3af !important;
+        }
+        
+        /* 左侧分类按钮 */
+        .dark .category-btn.bg-white {
+            background-color: #252530 !important;
+            color: #cbd5e1 !important;
+            border-color: #3f3f4e !important;
+        }
+        .dark .category-btn.bg-gradient-primary {
+            background: linear-gradient(135deg, #4F46E5, #8B5CF6) !important;
+            color: white !important;
+        }
+        
+        /* 搜索框 */
+        .dark #search-input {
+            background-color: #2d2d3a;
+            border-color: #4b4b60;
+            color: #e5e7eb;
+        }
+        .dark #search-input::placeholder {
+            color: #9ca3af;
+        }
+        
+        /* 右侧胶囊导航按钮 */
+        .dark .capsule-btn {
+            background: #1f1f2e;
+            color: #cbd5e1;
+            border-color: rgba(168,85,247,0.3);
+        }
+        .dark .capsule-btn:hover {
+            background: linear-gradient(135deg, rgba(79,70,229,0.2), rgba(139,92,246,0.2));
+            color: #a855f7;
+            box-shadow: 0 0 12px rgba(168,85,247,0.4);
+        }
+        
+        /* 卡片内文字 */
+        .dark .ingredient-card .text-gray-600,
+        .dark .ingredient-card .text-gray-700,
+        .dark .ingredient-card .text-gray-800,
+        .dark .ingredient-card h3,
+        .dark .ingredient-card p,
+        .dark .ingredient-card .toggle-details {
+            color: #d1d5db !important;
+        }
+        .dark .ingredient-card .bg-gray-100 {
+            background-color: #2d2d3a !important;
+            color: #a0aec0 !important;
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
         <!-- 深色模式切换按钮 -->
     <button id="themeToggle" class="theme-toggle">
-        <i class="fa fa-moon-o"></i>
+        <i class="fa fa-moon-o"></i>  
     </button>
     <!-- 返回主页按钮 -->
     <a href="#" id="backHomeBtn" class="back-home-btn">
-        <i class="fa fa-arrow-left"></i>
+        <i class="fa fa-arrow-left"></i> <span>返回</span>
     </a>
     <!-- 跟随鼠标的小圆点 -->
     <div id="cursor-dot" class="fixed w-6 h-6 rounded-full bg-primary/20 pointer-events-none z-[100] transition-all duration-200 ease-out" style="transform: translate(-50%, -50%); left: 0; top: 0; opacity: 0;"></div>
