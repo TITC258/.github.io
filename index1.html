@@ -483,6 +483,26 @@
             background-color: #2d2d3a !important;
             color: #a0aec0 !important;
         }
+                /* 强制确保按钮可见 */
+        .theme-toggle,
+        .back-home-btn {
+            display: flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            z-index: 9999 !important;
+        }
+        
+        /* 深色模式下按钮样式不变 */
+        .dark .theme-toggle,
+        .dark .back-home-btn {
+            border-color: rgba(168,85,247,0.3);
+            color: #d1d5db;
+        }
+        .dark .theme-toggle:hover,
+        .dark .back-home-btn:hover {
+            background: rgba(32,32,46,0.8);
+            box-shadow: 0 8px 22px rgba(168,85,247,0.22);
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
