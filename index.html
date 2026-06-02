@@ -62,11 +62,17 @@
             to   { box-shadow: inset 0 0 220px 60px rgba(168,85,247,0.35); }
         }
 
-        /* 退场时强制整个页面背景变为纯白色（覆盖渐变和深色模式） */
-        body.exit-to-white {
+        /* 退场背景覆盖：浅色模式用白色，深色模式用黑色 */
+        body.exit-bg {
+            transition: background 0s; /* 立即生效，无过渡 */
+        }
+        body.exit-bg:not(.dark) {
             background: white !important;
         }
-        body.exit-to-white::before {
+        body.exit-bg.dark {
+            background: #000000 !important; /* 纯黑，或 #0a0a0f 也可 */
+        }
+        body.exit-bg::before {
             display: none !important; /* 移除深色模式的光晕特效 */
         }
 
@@ -134,7 +140,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* 退场动画：内容淡出（不改变背景透明度） */
         .page-exit { animation: pageExit 0.8s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
         .nav-exit { animation: navExit 0.6s ease forwards; }
         @keyframes pageExit { to { opacity: 0; } }
@@ -163,7 +168,7 @@
     </main>
 
     <script>
-        // ---------- 深色模式 ----------
+        // 深色模式初始化
         function initTheme() {
             const btn = document.getElementById('themeToggle');
             const icon = btn.querySelector('i');
@@ -184,7 +189,6 @@
 
         let isExiting = false;
 
-        // 退场动画：整个画面最终变成纯白色（内容渐隐+背景强制白）
         function pageExitAnimation(url) {
             if (isExiting) return;
             isExiting = true;
@@ -193,50 +197,46 @@
             const title = document.getElementById('pageTitle');
             const nav = document.getElementById('navContainer');
 
-            // 1. 添加退场类（让内容渐隐）
+            // 添加退场动画类（内容渐隐）
             body.classList.add('page-exit');
             title.classList.add('nav-exit');
             nav.classList.add('nav-exit');
-            
-            // 2. 强制背景变为纯白色（覆盖原有的渐变/深色背景）
-            body.classList.add('exit-to-white');
 
-            // 3. 禁用所有导航链接点击
+            // 根据当前深色模式添加对应的背景覆盖类
+            body.classList.add('exit-bg');
+
+            // 禁用导航链接
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.style.pointerEvents = 'none';
             });
 
-            // 4. 等待动画结束（0.8s）后直接跳转，无需移除类（页面将卸载）
             setTimeout(() => {
                 window.location.href = url;
             }, 800);
         }
 
-        // 重置页面状态（用于后退/前进时恢复）
         function resetPageState() {
             const body = document.body;
             const title = document.getElementById('pageTitle');
             const nav = document.getElementById('navContainer');
             const links = document.querySelectorAll('.nav-link');
 
-            // 移除退场类 + 强制白色类
-            body.classList.remove('page-exit', 'exit-to-white');
+            // 移除所有退场相关类
+            body.classList.remove('page-exit', 'exit-bg');
             title.classList.remove('nav-exit');
             nav.classList.remove('nav-exit');
-            
-            // 恢复指针事件
+
             links.forEach(link => {
                 link.style.pointerEvents = '';
             });
-            
-            // 重置退出标志
+
             isExiting = false;
 
             // 重新触发入场动画
             title.style.animation = 'none';
             const animatedItems = document.querySelectorAll('.animate-fade-in-up');
             animatedItems.forEach(el => el.style.animation = 'none');
-            
+
             setTimeout(() => {
                 title.style.animation = '';
                 animatedItems.forEach(el => el.style.animation = '');
@@ -244,8 +244,7 @@
         }
 
         function initNav() {
-            const links = document.querySelectorAll('.nav-link');
-            links.forEach(link => {
+            document.querySelectorAll('.nav-link').forEach(link => {
                 link.onclick = (e) => {
                     e.preventDefault();
                     pageExitAnimation(link.getAttribute('href'));
@@ -261,7 +260,7 @@
         window.onload = () => {
             initTheme();
             initNav();
-            resetPageState(); // 确保初始状态干净
+            resetPageState();
         };
     </script>
 </body>
