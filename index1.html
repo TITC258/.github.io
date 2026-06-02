@@ -503,9 +503,16 @@
             background: rgba(32,32,46,0.8);
             box-shadow: 0 8px 22px rgba(168,85,247,0.22);
         }
+                /* 强制深色背景（覆盖任何 Tailwind 类） */
+        .dark {
+            background-color: #0f0f17 !important;
+        }
+        .dark body {
+            background-color: #0f0f17 !important;
+        }
     </style>
 </head>
-<body class="bg-gray-50 font-sans">
+<body class="font-sans">
         <!-- 深色模式切换按钮 -->
     <button id="themeToggle" class="theme-toggle">
         <i class="fa fa-moon-o"></i>  
