@@ -301,7 +301,7 @@
                 isMouseMoving = false;
             }, 100);
         });
-
+        
         document.addEventListener('mouseleave', () => {
             cursorDot.style.opacity = '0';
         });
@@ -370,6 +370,149 @@
             });
         });
         observer.observe(document.body, { attributes: true });
+    </script>
+    <!-- 左下角悬浮控件：竖线 → 眼睛小球 + 快捷键提示（控制现有小球） -->
+    <style>
+    /* 控件样式 */
+    .cursor-toggle-widget {
+        position: fixed;
+        bottom: 30px;
+        left: 0;
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+    }
+
+    .widget-line {
+        width: 4px;
+        height: 40px;
+        background-color: #cbd5e1;
+        border-radius: 2px;
+        transition: height 0.25s cubic-bezier(0.34, 1.2, 0.64, 1);
+        margin-left: 12px;
+    }
+    .dark .widget-line {
+        background-color: #4b5563;
+    }
+
+    .widget-eye {
+        width: 0px;
+        height: 0px;
+        background-color: #9333ea;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0px;
+        color: white;
+        transition: all 0.2s cubic-bezier(0.34, 1.2, 0.64, 1);
+        overflow: hidden;
+        transform: scale(0);
+        opacity: 0;
+    }
+    @keyframes bounceIn {
+        0% { transform: scale(0); opacity: 0; }
+        60% { transform: scale(1.2); opacity: 1; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    .cursor-toggle-widget:hover .widget-line {
+        height: 16px;
+    }
+    .cursor-toggle-widget:hover .widget-eye {
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+        transform: scale(1);
+        opacity: 1;
+        animation: bounceIn 0.3s ease-out forwards;
+    }
+    .widget-hint {
+        font-size: 13px;
+        color: #6b7280;
+        background: transparent;
+        padding: 4px 8px;
+        border-radius: 20px;
+        white-space: nowrap;
+        opacity: 0;
+        transform: translateX(-8px);
+        transition: opacity 0.2s ease 0.1s, transform 0.2s ease 0.1s;
+        pointer-events: none;
+    }
+    .dark .widget-hint {
+        color: #9ca3af;
+    }
+    .cursor-toggle-widget:hover .widget-hint {
+        opacity: 0.8;
+        transform: translateX(0);
+    }
+    </style>
+
+    <div class="cursor-toggle-widget" id="cursorToggleWidget">
+    <div class="widget-line"></div>
+    <div class="widget-eye">
+        <i class="fa fa-eye"></i>
+    </div>
+    <div class="widget-hint">Ctrl+H ｜ 隐藏小球</div>
+    </div>
+
+    <script>
+    (function() {
+        // 获取页面中已存在的跟随鼠标小球元素（ID 为 "cursor-dot"）
+        const cursorDot = document.getElementById('cursor-dot');
+        if (!cursorDot) {
+        console.warn('未找到 id="cursor-dot" 的小球，控件无效');
+        return;
+        }
+
+        // 读取存储的显示状态
+        let dotVisible = true;
+        const savedState = localStorage.getItem('cursorDotVisible');
+        if (savedState !== null && savedState === 'false') {
+        dotVisible = false;
+        cursorDot.style.display = 'none';
+        } else {
+        cursorDot.style.display = '';
+        }
+
+        // 切换小球的显示/隐藏
+        function setDotVisible(visible) {
+        dotVisible = visible;
+        cursorDot.style.display = visible ? '' : 'none';
+        localStorage.setItem('cursorDotVisible', visible);
+        }
+
+        // 控件点击事件
+        const widget = document.getElementById('cursorToggleWidget');
+        if (widget) {
+        widget.addEventListener('click', (e) => {
+            e.stopPropagation();
+            setDotVisible(!dotVisible);
+            // 简单的视觉反馈：让眼睛图标轻微缩放
+            const eyeIcon = widget.querySelector('.widget-eye i');
+            if (eyeIcon) {
+            eyeIcon.style.transform = 'scale(0.9)';
+            setTimeout(() => { eyeIcon.style.transform = ''; }, 150);
+            }
+        });
+        }
+
+        // 快捷键 Ctrl+H 切换
+        document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && (e.key === 'h' || e.key === 'H')) {
+            e.preventDefault();
+            setDotVisible(!dotVisible);
+            if (widget) {
+            const eyeIcon = widget.querySelector('.widget-eye i');
+            if (eyeIcon) {
+                eyeIcon.style.transform = 'scale(0.9)';
+                setTimeout(() => { eyeIcon.style.transform = ''; }, 150);
+            }
+            }
+        }
+        });
+    })();
     </script>
 </body>
 </html>
