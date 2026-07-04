@@ -167,6 +167,22 @@
             opacity: 0.3;               /* 悬停不透明 */
         }
 
+        /* 复制按钮样式 */
+        .copy-btn {
+            opacity: 0.6;
+            transition: color 0.2s ease, opacity 0.2s ease;
+            font-size: 0.875rem;
+        }
+        .copy-btn:hover {
+            opacity: 1;
+        }
+        .ingredient-card:hover .copy-btn {
+            opacity: 0.8;
+        }
+        .ingredient-card .copy-btn:hover {
+            opacity: 1;
+        }
+
         /* 强制所有分类按钮过渡（包括非激活按钮） */
         .category-btn {
             transition: transform 0.3s ease, box-shadow 0.3s ease !important;
@@ -464,6 +480,16 @@
         .dark .ingredient-card:hover .gradient-layer {
             filter: saturate(1);
             opacity: 2;
+        }
+        /* 复制按钮深色模式样式 */
+        .dark .copy-btn {
+            color: #6b7280 !important;
+        }
+        .dark .copy-btn:hover {
+            color: #a855f7 !important;
+        }
+        .dark .copy-btn.text-green-500 {
+            color: #10b981 !important;
         }
         .dark .bg-white {
             background-color: #1e1e2a !important;
@@ -3435,8 +3461,24 @@
                     
                     <!-- 名称区域 -->
                     <div class="text-center mb-4">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">${ingredient.name}</h3>
-                        ${ingredient.englishName ? `<p class="text-gray-600">${ingredient.englishName}</p>` : ''}
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">
+                            <span class="relative inline-block">
+                                ${ingredient.name}
+                                <button class="copy-btn copy-name-btn text-gray-400 hover:text-primary transition-colors p-1 rounded absolute left-full ml-1 top-1/2 -translate-y-1/2" data-text="${ingredient.name}" title="复制名称">
+                                    <i class="fa fa-copy"></i>
+                                </button>
+                            </span>
+                        </h3>
+                        ${ingredient.englishName ? `
+                        <p class="text-gray-600 mb-1">
+                            <span class="relative inline-block">
+                                ${ingredient.englishName}
+                                <button class="copy-btn copy-english-btn text-gray-400 hover:text-primary transition-colors p-1 rounded absolute left-full ml-1 top-1/2 -translate-y-1/2" data-text="${ingredient.englishName}" title="复制英文名称">
+                                    <i class="fa fa-copy"></i>
+                                </button>
+                            </span>
+                        </p>
+                        ` : ''}
                         ${ingredient.scientificName ? `<p class="text-gray-600">${ingredient.scientificName}</p>` : ''}
                     </div>
                     
@@ -3482,6 +3524,31 @@
                     details.style.opacity = '0';
                     toggleIcon.style.transform = 'rotate(0deg)';
                 }
+            });
+
+            // 添加复制功能
+            const copyBtns = card.querySelectorAll('.copy-btn');
+            copyBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // 防止触发卡片的其他点击事件
+                    const text = btn.getAttribute('data-text');
+                    if (text) {
+                        navigator.clipboard.writeText(text).then(() => {
+                            // 复制成功反馈
+                            const originalHTML = btn.innerHTML;
+                            btn.innerHTML = '<i class="fa fa-check"></i>';
+                            btn.classList.add('text-green-500');
+                            btn.classList.remove('text-gray-400');
+                            setTimeout(() => {
+                                btn.innerHTML = originalHTML;
+                                btn.classList.remove('text-green-500');
+                                btn.classList.add('text-gray-400');
+                            }, 1500);
+                        }).catch(err => {
+                            console.error('复制失败:', err);
+                        });
+                    }
+                });
             });
 
             return card;
