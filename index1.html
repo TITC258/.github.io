@@ -1,4 +1,4 @@
-﻿<html lang="zh-CN">
+<html lang="zh-CN">
 <head>
     <link rel="shortcut icon" href="tubiao.png" type="image/png">
     <link rel="icon" href="tubiao.png" type="image/png">
@@ -13,7 +13,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>成分 | 护肤品成分参考</title>
+    <title>成分|护肤品成分参考</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script>
@@ -673,6 +674,10 @@
         }
         .ingredient-card {
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.075);
+        }
+        .ingredient-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.06);
         }
         .ingredient-card .text-gray-600,
         .ingredient-card .text-gray-700,
@@ -4199,12 +4204,11 @@
                 id: 2,
                 type: 'info',
                 icon: 'fa-info-circle',
-                title: '📢 ⏰️！！！',
+                title: '📢 nao',
                 date: '2026-xx-xx',
                 content: '<p>(睡醒)啊？又要上班了吗</p>'
-                + '<img src="zhao.jpg" alt="" class="w-full h-auto mt-2">'
+                + '<img src="zhao.png" alt="" class="w-full h-auto mt-2">'
             }
-                
             // 后续新增公告直接在这里加，例如：
             // ,{
             //     id: 2,
